@@ -1,0 +1,80 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:hint">@color/colorAccent</item>
+        <item name="android:textAppearance">@style/ToolbarTextAppearance</item>
+    </style>
+
+    <style name="ToolbarTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="NavigationTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
+    <style name="BigText">
+        <item name="android:textSize">@dimen/text_23sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NormalText">
+        <item name="android:paddingTop">@dimen/padding_16</item>
+        <item name="android:textSize">@dimen/text_16sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ItalicText">
+        <item name="android:textSize">@dimen/text_28sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="HugeText">
+        <item name="android:textSize">@dimen/text_48sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <dimen name="text_28sp">28sp</dimen>
+
+    <style name="StyledButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/colorPrimaryDark</item>
+        <item name="android:background">@drawable/bg_round</item>
+    </style>
+
+    <style name="StyledEditText">
+        <item name="android:padding">@dimen/padding_16</item>
+        <item name="android:layout_height">@dimen/height_edit_text</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/margin_8</item>
+        <item name="android:layout_marginBottom">@dimen/margin_8</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:backgroundTint">@color/blueLight</item>
+        <item name="android:background">@drawable/bg_edittext</item>
+    </style>
+    <style name="StyledTextView">
+
+        <item name="android:textAlignment">center</item>
+        <item name="android:padding">@dimen/padding_8</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_23sp</item>
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+
+</resources>

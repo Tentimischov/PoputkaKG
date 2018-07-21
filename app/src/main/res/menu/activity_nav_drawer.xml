@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group>
+        <item
+            android:id="@+id/navItemImageLibrary"
+            android:title="@string/map" />
+        <item
+            android:id="@+id/navItemSettingsStage"
+            android:title="@string/offers" />
+        <item
+            android:id="@+id/navItemCreateCard"
+            android:title="@string/invite_friends" />
+        <item
+            android:id="@+id/navItemAppInfo"
+            android:title="@string/settings" />
+
+        <item
+            android:title="@string/support" />
+        <item
+            android:title="@string/about_app" />
+
+    </group>
+</menu>

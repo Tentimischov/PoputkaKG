@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">PoputkaKG</string>
+    <string name="profile">Профиль</string>
+    <string name="profile_name">Имя:</string>
+    <string name="profile_phone">Номер телефона:</string>
+    <string name="profile_city">Город:</string>
+    <string name="your_rating">Ваш\n рейтинг:</string>
+    <string name="enter_login">Вход</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="sign_up">Зарегестрироваться</string>
+    <string name="signing_up">Регистрация</string>
+    <string name="driver">Водитель</string>
+    <string name="passenger">Пассажир</string>
+    <string name="usage_police">Политика использования приложения</string>
+    <string name="i_am_agree">Ознакомлен и принимаю</string>
+    <string name="map">Карта</string>
+    <string name="offers">Предложения</string>
+    <string name="invite_friends">Пригласить друзей</string>
+    <string name="settings">Настройки</string>
+    <string name="support">Поддержка</string>
+    <string name="about_app">О приложении</string>
+    <string name="request_setting_permissions">Вы отключили некоторые разрешения, включите их в настройках</string>
+    <string name="fill_fields">Заполните все поля</string>
+    <string name="check_sms">Проверить код</string>
+    <string name="checking_sms">Проверка SMS кода</string>
+    <string name="error_login">Номер или пароль неверный</string>
+    <string name="success_login">Вы успешно вошли</string>
+    <string name="phone">Введите номер(9 цифр)</string>
+    <string name="type_password">Введите пароль</string>
+</resources>
