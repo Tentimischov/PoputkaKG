@@ -74,6 +74,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, View.OnClickListe
 
         val editor = mPrefs.edit()
         editor.putString(Const.PREFS_CHECK_TOKEN, token.token)
+        editor.putInt(Const.PREFS_CHECK_USER_ID, token.userId!!)
+
         editor.apply()
 
         startActivity(Intent(this, MainActivity::class.java))

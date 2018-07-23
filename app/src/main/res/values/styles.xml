@@ -26,14 +26,14 @@
     </style>
 
     <style name="BigText">
-        <item name="android:textSize">@dimen/text_23sp</item>
+        <item name="android:textSize">@dimen/text_18sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="NormalText">
         <item name="android:paddingTop">@dimen/padding_16</item>
-        <item name="android:textSize">@dimen/text_16sp</item>
+        <item name="android:textSize">@dimen/text_14sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
@@ -51,6 +51,7 @@
     </style>
 
     <dimen name="text_28sp">28sp</dimen>
+    <dimen name="text_14sp">14sp</dimen>
 
     <style name="StyledButton">
         <item name="android:textColor">@color/white</item>

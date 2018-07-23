@@ -30,11 +30,9 @@ class CheckSmsCodeActivity : AppCompatActivity(), CheckSmsCodeContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_check_sms_code)
 
-
         mPrefs = this.getSharedPreferences(PREFS_FILENAME, 0)
 
         init()
-
     }
 
     private fun init() {
@@ -66,6 +64,8 @@ class CheckSmsCodeActivity : AppCompatActivity(), CheckSmsCodeContract.View {
 
         val editor = mPrefs.edit()
         editor.putString(Const.PREFS_CHECK_TOKEN, mToken.token)
+        editor.putInt(Const.PREFS_CHECK_USER_ID, mToken.userId!!)
+
         editor.apply()
 
         startActivity(Intent(this, MainActivity::class.java))

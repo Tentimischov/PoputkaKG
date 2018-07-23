@@ -2,9 +2,7 @@ package baktiyar.com.poputkakg.util
 
 import baktiyar.com.poputkakg.model.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ForumService {
 
@@ -19,4 +17,9 @@ interface ForumService {
 
     @POST("users/login/")
     fun login(@Body login: Login): Call<Token>
+
+
+    @Headers("Content-Type:application/json")
+    @GET("users/{user_id}/")
+    fun getProfileInfo(@Path("user_id" )user_id: Int, @Header("Authorization") token :String) : Call<ProfileInfo>
 }

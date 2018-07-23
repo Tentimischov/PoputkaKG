@@ -27,4 +27,7 @@
     <string name="success_login">Вы успешно вошли</string>
     <string name="phone">Введите номер(9 цифр)</string>
     <string name="type_password">Введите пароль</string>
+    <string name="turn_on_internet">Включите интернет</string>
+    <string name="credit_story">Кредитная история</string>
+    <string name="drive_amount">Количество поездок</string>
 </resources>

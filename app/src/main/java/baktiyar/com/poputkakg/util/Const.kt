@@ -19,6 +19,8 @@ class Const {
         const val PREFS_FILENAME = "baktiyar.com.poputka_prefs"
 
         const val PREFS_CHECK_TOKEN = "baktiyar.com.poputka_token_prefs"
+        const val PREFS_CHECK_USER_ID = "baktiyar.com.poputka_user_id_prefs"
+        const val TOKEN_PREFIX: String = "Token "
 
         fun hideKeyboard(activity: Activity) {
             val view: View? = activity.window.currentFocus

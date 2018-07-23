@@ -20,6 +20,9 @@
             android:title="@string/support" />
         <item
             android:title="@string/about_app" />
+        <item
+            android:id="@+id/navItemProfileInfo"
+            android:title="@string/profile" />
 
     </group>
 </menu>

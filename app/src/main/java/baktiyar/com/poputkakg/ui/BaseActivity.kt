@@ -80,7 +80,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         drawerLayout.closeDrawer(GravityCompat.START)
         val id: Int = item.itemId
         when (id) {
-
+            R.id.navItemProfileInfo ->startActivity(Intent(this, ProfileActivity::class.java))
         }
         return true
 
