@@ -12,9 +12,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 
-open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMapClickListener {
+open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
 
-    var mMap: GoogleMap? = null
+
+    private var mMap: GoogleMap? = null
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
@@ -43,20 +44,10 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         mMap!!.setOnMyLocationButtonClickListener(this)
         if (Permissions.iPermissionLocation(this))
             setMyLocationEnable()
-        mMap!!.setOnMapClickListener(this)
-        /* mMap!!.setOnMarkerClickListener { v ->
-             val data = v.tag as? Info?
-             if (data != null) {
-                 val intent = Intent(this, DetailActivity::class.java)
-                 intent.putExtra("data", data)
-                 startActivity(intent)
-                 return@setOnMarkerClickListener true
-             }
-             return@setOnMarkerClickListener false
-         }*/
     }
 
-    override fun onMapClick(latLng: LatLng?) {}
+    override fun onMyLocationButtonClick(): Boolean = false
+
 
     @SuppressLint("MissingPermission")
     private fun setMyLocationEnable() {
@@ -72,27 +63,6 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
             Permissions.iPermissionLocation(this)
         }
     }
-/*
-    protected fun drawList(list: MutableList<Info>, type: Client) {
-        if (mMap != null) {
-            list.forEach { data ->
-                if (data.start_latitude != null && data.start_longitude != null) {
-                    val latLng = LatLng(data.start_latitude!!, data.start_longitude!!)
-                    mMap!!.addMarker(MarkerOptions()
-                            .title(data.name)
-                            .snippet(data.phone)
-                            .icon(BitmapDescriptorFactory.fromResource(getBitmap(type==Client.DRIVER )))
-                            .anchor(0.0f, 1.0f)
-                            .position(latLng)).tag = data
-                }
-            }
-        }
-    }*/
-/*
-    private fun getBitmap(isDriver: Boolean): Int {
-        return if (isDriver) R.mipmap.driver_marker else R.mipmap.rider_marker
-    }*/
 
-    override fun onMyLocationButtonClick(): Boolean = true
 
 }

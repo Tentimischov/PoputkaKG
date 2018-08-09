@@ -40,7 +40,8 @@
 
                 <Button
                     android:id="@+id/btnIsDriverSignUp"
-                    style="@style/StyledButton"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/margin_8"
@@ -49,24 +50,27 @@
 
                 <Button
                     android:id="@+id/btnIsRiderSignUp"
-                    style="@style/StyledButton"
+                    android:background="@color/lightGray"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/margin_8"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/lightGray"
                     android:text="@string/passenger" />
 
             </LinearLayout>
 
             <EditText
 
+                android:hint="@string/type_phone_number"
                 android:id="@+id/etPhoneSignUp"
                 style="@style/StyledEditText"
                 android:inputType="phone"
                 android:maxLines="1" />
 
             <EditText
+
+                android:hint="@string/type_password"
                 android:id="@+id/etPasswordSignUp"
                 style="@style/StyledEditText"
                 android:inputType="textPassword"

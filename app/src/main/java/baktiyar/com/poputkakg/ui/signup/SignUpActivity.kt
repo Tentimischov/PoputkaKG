@@ -1,7 +1,11 @@
 package baktiyar.com.poputkakg.ui.signup
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import baktiyar.com.poputkakg.R
@@ -11,6 +15,7 @@ import baktiyar.com.poputkakg.model.ProfileInfo
 import baktiyar.com.poputkakg.model.User
 import baktiyar.com.poputkakg.ui.checksms.CheckSmsCodeActivity
 import baktiyar.com.poputkakg.ui.signup.adapter.CitiesSpinnerAdapter
+import baktiyar.com.poputkakg.util.ConnectionsManager
 import baktiyar.com.poputkakg.util.Const
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -29,6 +34,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
         init()
     }
 
@@ -37,7 +43,11 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
         btnIsDriverSignUp.setOnClickListener(this)
         btnIsRiderSignUp.setOnClickListener(this)
         btnSignUp.setOnClickListener(this)
-        initPresenter()
+        if (ConnectionsManager.isNetworkOnline()) {
+            initPresenter()
+        } else {
+            Const.makeToast(this, resources.getString(R.string.turn_on_internet))
+        }
     }
 
     private fun initPresenter() {
@@ -54,20 +64,25 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
 
     private fun onUserButtonClick(isDriver: Boolean) {
         if (isDriver) {
+            mIsDriver = true
 
+            btnIsDriverSignUp.setBackgroundColor(resources.getColor(R.color.lightGray))
+            btnIsRiderSignUp.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
         } else {
+            mIsDriver = false
 
-        }
+            btnIsDriverSignUp.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
+            btnIsRiderSignUp.setBackgroundColor(resources.getColor(R.color.lightGray))}
 
     }
 
     override fun onClick(v: View?) {
         when (v) {
             btnIsRiderSignUp -> {
-
+                onUserButtonClick(true)
             }
             btnIsDriverSignUp -> {
-
+                onUserButtonClick(false)
             }
 
             btnSignUp -> {
@@ -80,16 +95,28 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
 
         if (filledFields()) {
 
-            mUser.phone = etPhoneSignUp.text.toString()
+            if (checkFor9Signs()) {
+                mUser.phone = etPhoneSignUp.text.toString()
+            } else {
+                Const.makeToast(this, resources.getString(R.string.error_phone_length))
+            }
             mUser.password = etPasswordSignUp.text.toString()
             mUser.passwordRepeat = etPasswordSignUp.text.toString()
             mUser.isDriver = mIsDriver
-            mUser.cityId = mCities[spinnerSitiesSignUp.selectedItemPosition].id
-//            mUser.cityId = 1
+            if (mCities.size>0){
+                mUser.cityId = mCities[spinnerSitiesSignUp.selectedItemPosition].id
+            }else{
+                mUser.cityId = 1
+            }
             mPresenter.signUp(mUser)
         } else {
-            Const.makeToast(this, R.string.fill_fields.toString())
+            Const.makeToast(this, resources.getString(R.string.fill_fields))
         }
+    }
+
+    private fun checkFor9Signs(): Boolean {
+        return (etPhoneSignUp.text.toString().length == 9)
+
     }
 
     private fun filledFields(): Boolean {

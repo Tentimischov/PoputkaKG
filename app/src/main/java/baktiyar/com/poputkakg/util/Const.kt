@@ -1,12 +1,14 @@
 package baktiyar.com.poputkakg.util
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import android.support.design.widget.Snackbar
+import baktiyar.com.poputkakg.R
 
 
 class Const {
@@ -16,11 +18,18 @@ class Const {
         const val INTENT_PROFILE_INFO = "com.poputka.profileinfo"
 
 
+        const val MAP_START = 0
+        const val MAP_END = 1
         const val PREFS_FILENAME = "baktiyar.com.poputka_prefs"
 
         const val PREFS_CHECK_TOKEN = "baktiyar.com.poputka_token_prefs"
         const val PREFS_CHECK_USER_ID = "baktiyar.com.poputka_user_id_prefs"
+        const val PREFS_CHECK_IS_DRIVER = "baktiyar.com.poputka_is_driver_prefs"
         const val TOKEN_PREFIX: String = "Token "
+
+
+        const val MAP_RESULT = "map_result"
+        const val MAP_LOCATION = "location"
 
         fun hideKeyboard(activity: Activity) {
             val view: View? = activity.window.currentFocus
@@ -36,6 +45,21 @@ class Const {
             Snackbar.make(view, message, Snackbar.LENGTH_LONG)
                     .setActionTextColor(Color.RED)
                     .show()
+        }
+
+        fun progressIsShowing(isShowing: Boolean, activity: Activity) {
+            var progressBar: ProgressDialog? = null
+            if (isShowing) {
+                if (progressBar == null) {
+                    progressBar = ProgressDialog(activity)
+                    progressBar.setTitle(R.string.loading)
+                    progressBar.show()
+                }
+            } else {
+                if (progressBar != null && progressBar.isShowing) progressBar!!.dismiss()
+                progressBar = null
+            }
+
         }
     }
 }

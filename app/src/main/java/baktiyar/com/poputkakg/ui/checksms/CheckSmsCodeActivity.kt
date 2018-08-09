@@ -32,6 +32,13 @@ class CheckSmsCodeActivity : AppCompatActivity(), CheckSmsCodeContract.View {
 
         mPrefs = this.getSharedPreferences(PREFS_FILENAME, 0)
 
+        if (intent.extras!=null){
+            if(intent.extras.containsKey(Const.INTENT_PROFILE_INFO)){
+                mProfileInfo = intent.getParcelableExtra(Const.INTENT_PROFILE_INFO)
+                mPrefs.edit().putBoolean(Const.PREFS_CHECK_IS_DRIVER, mProfileInfo.isDriver!!).apply()
+            }
+        }
+
         init()
     }
 
@@ -65,9 +72,7 @@ class CheckSmsCodeActivity : AppCompatActivity(), CheckSmsCodeContract.View {
         val editor = mPrefs.edit()
         editor.putString(Const.PREFS_CHECK_TOKEN, mToken.token)
         editor.putInt(Const.PREFS_CHECK_USER_ID, mToken.userId!!)
-
         editor.apply()
-
         startActivity(Intent(this, MainActivity::class.java))
 
     }
@@ -76,4 +81,11 @@ class CheckSmsCodeActivity : AppCompatActivity(), CheckSmsCodeContract.View {
         Const.makeToast(this, message)
     }
 
+    override fun showProgress() {
+        Const.progressIsShowing(true, this)
+    }
+
+    override fun hideProgress() {
+        Const.progressIsShowing(false, this)
+    }
 }

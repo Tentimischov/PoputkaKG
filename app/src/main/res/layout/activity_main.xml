@@ -28,7 +28,7 @@
                 tools:context=".ui.main.MainActivity" />
 
             <ImageView
-                android:id="@+id/ivSettings"
+                android:id="@+id/ivFilterSettings"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="@dimen/margin_32"

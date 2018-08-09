@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/margin_16">
 
-</android.support.constraint.ConstraintLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivHistoryUserImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/profile_user" />
+
+    <TextView
+        android:id="@+id/tvHistoryUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_toEndOf="@+id/ivHistoryUserImage"
+        android:text="Джулс"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/text_18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/layoutRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_4">
+
+        <RatingBar
+            android:background="@color/white"
+            android:id="@+id/rbHistoryRating"
+            style="@style/customRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/tvHistoryComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvHistoryUserName"
+        android:layout_below="@+id/tvHistoryTime"
+        android:text="Хороший водитель, приятный собеседник. Попутчик что надо!" />
+    <TextView
+        android:id="@+id/tvHistoryTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        android:layout_alignLeft="@id/tvHistoryUserName"
+        android:layout_below="@id/tvHistoryUserName"
+
+        android:text="3 июля 19:00" />
+</RelativeLayout>

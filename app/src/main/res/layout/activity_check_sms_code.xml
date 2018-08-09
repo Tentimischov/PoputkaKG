@@ -30,6 +30,7 @@
             android:text="@string/checking_sms" />
 
         <EditText
+            android:hint="@string/sms_code"
             android:id="@+id/etCheckSms"
             style="@style/StyledEditText"
             android:inputType="number"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.token.LoginActivity">
+    tools:context=".ui.login.LoginActivity">
 
     <ScrollView
 
@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/margin_32">
 
@@ -30,15 +30,13 @@
                 android:maxLength="9"
                 android:id="@+id/etPhoneLogin"
                 style="@style/StyledEditText"
-                android:hint="@string/phone"
-                android:textColorHint="@color/colorPrimaryDark" />
+                android:hint="@string/type_phone_number" />
 
             <EditText
                 android:inputType="textPassword"
                 android:id="@+id/etPassWordLogin"
                 style="@style/StyledEditText"
-                android:hint="@string/type_password"
-                android:textColorHint="@color/colorPrimaryDark" />
+                android:hint="@string/type_password"/>
 
 
             <Button

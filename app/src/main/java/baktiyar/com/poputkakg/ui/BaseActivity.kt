@@ -3,6 +3,7 @@ package baktiyar.com.poputkakg.ui
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
@@ -12,12 +13,11 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.RelativeLayout
 import baktiyar.com.poputkakg.R
+import baktiyar.com.poputkakg.ui.login.LoginActivity
 import baktiyar.com.poputkakg.ui.profile.ProfileActivity
+import baktiyar.com.poputkakg.util.Const
 import baktiyar.com.poputkakg.util.Const.Companion.hideKeyboard
-import de.hdodenhof.circleimageview.CircleImageView
 
 
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -26,7 +26,8 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
-//    private lateinit var profile: RelativeLayout
+
+    private lateinit var mPrefs: SharedPreferences
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
@@ -35,14 +36,13 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         rel = findViewById(R.id.content_frame)
         toolbar = findViewById(R.id.toolbar)
         navigationView.inflateHeaderView(R.layout.partial_nav_header);
-/*
-        profile = findViewById<RelativeLayout>(R.id.profile)
-        profile.setOnClickListener { startActivity(Intent(this, ProfileActivity::class.java)) }*/
+
         init()
     }
 
     private fun init() {
-        drawerLayout.openDrawer(GravityCompat.START)
+        mPrefs = this.getSharedPreferences(Const.PREFS_FILENAME, 0)
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         val id = intent.getIntExtra("id", R.id.navItemSettingsStage)
@@ -80,7 +80,14 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         drawerLayout.closeDrawer(GravityCompat.START)
         val id: Int = item.itemId
         when (id) {
-            R.id.navItemProfileInfo ->startActivity(Intent(this, ProfileActivity::class.java))
+            R.id.navItemProfileInfo -> startActivity(Intent(this, ProfileActivity::class.java))
+            R.id.navItemLogOut ->{
+                mPrefs.edit().remove(Const.PREFS_CHECK_TOKEN).apply()
+                mPrefs.edit().remove(Const.PREFS_CHECK_IS_DRIVER).apply()
+                mPrefs.edit().remove(Const.PREFS_CHECK_USER_ID).apply()
+                finish()  //Kill the activity from which you will go to next activity
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
         }
         return true
 

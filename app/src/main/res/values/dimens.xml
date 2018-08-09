@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="margin_horizontal">16dp</dimen>
     <dimen name="card_corner_radius">20dp</dimen>
     <dimen name="card_elevation">8dp</dimen>
     <dimen name="padding_8">8dp</dimen>
@@ -22,4 +24,6 @@
     <dimen name="btn_radius">4dp</dimen>
     <dimen name="btn_radius_8dp">8dp</dimen>
     <dimen name="height_edit_text">50dp</dimen>
+    <dimen name="btn_radius_32dp">32dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
 </resources>

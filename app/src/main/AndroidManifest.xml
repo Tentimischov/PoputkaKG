@@ -37,6 +37,8 @@
 
         </activity>
         <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.pick_addr.PickAddressActivity" />
+        <activity android:name=".ui.map.MapViewActivity" />
         <activity android:name=".ui.checksms.CheckSmsCodeActivity" />
     </application>
 
