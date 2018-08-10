@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
+import android.view.View
 import baktiyar.com.poputkakg.R
 import baktiyar.com.poputkakg.StartApplication.Companion.INSTANCE
 import baktiyar.com.poputkakg.model.History
@@ -86,6 +87,8 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View, HistoryAdapte
             Glide.with(this)
                     .load(profileInfo.photo)
                     .into(ivProfileImage)
+        }else{
+            ivProfileImage.visibility = View.GONE
         }
         tvProfileName.text = profileInfo.firstName + " " + profileInfo.lastName
         tvProfileCity.text = profileInfo.city
@@ -95,7 +98,11 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View, HistoryAdapte
         } else {
             tvProfileDealsCount.text = "0"
         }
-        tvProfileRating.text = profileInfo.rating.toString()
+        if(profileInfo.rating!=null){
+            tvProfileRating.text = profileInfo.rating.toString()
+        }else{
+            tvProfileRating.text = "0"
+        }
         setUserStatus(profileInfo.isDriver)
 
     }

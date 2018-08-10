@@ -18,12 +18,14 @@ import baktiyar.com.poputkakg.ui.signup.adapter.CitiesSpinnerAdapter
 import baktiyar.com.poputkakg.util.ConnectionsManager
 import baktiyar.com.poputkakg.util.Const
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import android.widget.CompoundButton
+
 
 class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract.View {
 
 
-    private var mIsDriver: Boolean = true
-
+    private var mIsDriver = true
+    private var mIsAgreed = false
     private var mUser: User = User()
     private var mProfileInfo: ProfileInfo = ProfileInfo()
 
@@ -40,6 +42,9 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
 
 
     private fun init() {
+        chkBoxAgreedSignUp.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            mIsAgreed = isChecked
+        })
         btnIsDriverSignUp.setOnClickListener(this)
         btnIsRiderSignUp.setOnClickListener(this)
         btnSignUp.setOnClickListener(this)
@@ -72,7 +77,8 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
             mIsDriver = false
 
             btnIsDriverSignUp.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
-            btnIsRiderSignUp.setBackgroundColor(resources.getColor(R.color.lightGray))}
+            btnIsRiderSignUp.setBackgroundColor(resources.getColor(R.color.lightGray))
+        }
 
     }
 
@@ -103,12 +109,16 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
             mUser.password = etPasswordSignUp.text.toString()
             mUser.passwordRepeat = etPasswordSignUp.text.toString()
             mUser.isDriver = mIsDriver
-            if (mCities.size>0){
+            if (mCities.size > 0) {
                 mUser.cityId = mCities[spinnerSitiesSignUp.selectedItemPosition].id
-            }else{
+            } else {
                 mUser.cityId = 1
             }
-            mPresenter.signUp(mUser)
+            if (mIsAgreed) {
+                mPresenter.signUp(mUser)
+            } else {
+                Const.makeToast(this, getString(R.string.read_license))
+            }
         } else {
             Const.makeToast(this, resources.getString(R.string.fill_fields))
         }

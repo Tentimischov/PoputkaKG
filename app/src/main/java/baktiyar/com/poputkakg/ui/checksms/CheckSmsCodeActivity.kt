@@ -12,6 +12,7 @@ import baktiyar.com.poputkakg.model.SmsCode
 import baktiyar.com.poputkakg.ui.main.MainActivity
 import baktiyar.com.poputkakg.util.Const
 import baktiyar.com.poputkakg.util.Const.Companion.PREFS_FILENAME
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_check_sms_code.*
 
 class CheckSmsCodeActivity : AppCompatActivity(), CheckSmsCodeContract.View {
@@ -73,6 +74,8 @@ class CheckSmsCodeActivity : AppCompatActivity(), CheckSmsCodeContract.View {
         editor.putString(Const.PREFS_CHECK_TOKEN, mToken.token)
         editor.putInt(Const.PREFS_CHECK_USER_ID, mToken.userId!!)
         editor.apply()
+        hideProgress()
+
         startActivity(Intent(this, MainActivity::class.java))
 
     }

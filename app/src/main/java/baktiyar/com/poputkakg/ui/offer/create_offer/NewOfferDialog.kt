@@ -20,6 +20,7 @@ import baktiyar.com.poputkakg.util.Const.Companion.MAP_END
 import baktiyar.com.poputkakg.util.Const.Companion.MAP_START
 import baktiyar.com.poputkakg.util.FileLog
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.android.synthetic.main.activity_sign_up.*
 
 
 class NewOfferDialog : DialogFragment(), NewOfferContract.View, View.OnClickListener {
@@ -30,20 +31,16 @@ class NewOfferDialog : DialogFragment(), NewOfferContract.View, View.OnClickList
 
     private lateinit var mPrefs: SharedPreferences
     private lateinit var mToken: String
-
+    private var mIsDriver = true
+    private var mIsBag = false
     private var mStartLocation: LatLng? = null
     private var mEndLocation: LatLng? = null
 
-    private var mIsDriver: Boolean = true
-
 
     companion object {
-
         fun newInstance(): NewOfferDialog {
-            var dialogFragment = NewOfferDialog()
-            return dialogFragment
+            return NewOfferDialog()
         }
-
     }
 
     override fun onStart() {
@@ -69,7 +66,6 @@ class NewOfferDialog : DialogFragment(), NewOfferContract.View, View.OnClickList
         mToken = mPrefs.getString(Const.PREFS_CHECK_TOKEN, "")
         mIsDriver = mPrefs.getBoolean(Const.PREFS_CHECK_IS_DRIVER, true)
 
-
         FileLog.e("Token $mToken")
 
         initPresenter()
@@ -94,6 +90,8 @@ class NewOfferDialog : DialogFragment(), NewOfferContract.View, View.OnClickList
             mRout.isLocal = !isChecked
         })
 
+        checkboxIsBag.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked -> setRoutGoal(isChecked) })
+        checkboxIsMan.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked -> setRoutGoal(isChecked) })
         ivStartAddressPoint.setOnClickListener(this)
         ivEndAddressPoint.setOnClickListener(this)
         btnSendOffer.setOnClickListener(this)
@@ -114,17 +112,32 @@ class NewOfferDialog : DialogFragment(), NewOfferContract.View, View.OnClickList
     }
 
 
+    private fun setRoutGoal(isBag: Boolean) {
+
+        mIsBag = isBag
+        if (isBag) {
+            checkboxIsBag.isChecked = true
+            checkboxIsMan.isChecked = false
+        } else {
+            checkboxIsBag.isChecked = false
+            checkboxIsMan.isChecked = true
+        }
+    }
+
     private fun sendOffer() {
         mRout.availableSeats = Integer.valueOf(etSpaceAmount.text.toString())
-        mRout.isDriver = true
+        mRout.isDriver = mIsDriver
+        mRout.isBag = mIsBag
         mRout.description = etRoutDescription.text.toString()
+
+        mRout.startAddress = tvStartAddressPoint.text.toString()
+        mRout.endAddress = tvEndAddressPoint.text.toString()
 
         mRout.startLatitude = mStartLocation!!.latitude.toString()
         mRout.startLongitude = mStartLocation!!.longitude.toString()
 
         mRout.endLatitude = mEndLocation!!.latitude.toString()
-        mRout.endLongitude= mEndLocation!!.longitude.toString()
-
+        mRout.endLongitude = mEndLocation!!.longitude.toString()
 
         mPresenter.sendOffer(mRout, mToken)
     }

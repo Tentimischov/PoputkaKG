@@ -35,12 +35,10 @@ import java.util.*
 class PickAddressActivity : AppCompatActivity(), PickAddressContract.View, OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMapClickListener {
 
     private var mMap: GoogleMap? = null
-
-    private lateinit var mPresenter: PickAddressPresenter
-
     private var mAdapter: PlaceAutoCompleteAdapter? = null
     private var mGoogleApiClient: GoogleApiClient? = null
 
+    private lateinit var mPresenter: PickAddressPresenter
     private var mDefaultLocation = LatLng(42.8746, 74.5698)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -213,7 +211,6 @@ class PickAddressActivity : AppCompatActivity(), PickAddressContract.View, OnMap
         // instantiate the location manager, note you will need to request permissions in your manifest
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         // get the last know location from your location manager.
-
         val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         // now get the lat/lon from the location and do something with it.
         val latlng = LatLng(location.latitude, location.longitude)
@@ -225,8 +222,8 @@ class PickAddressActivity : AppCompatActivity(), PickAddressContract.View, OnMap
     protected fun showWarningMessage(message: String) {
         val builder = android.support.v7.app.AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.error)).setMessage(message)
-                .setPositiveButton(android.R.string.ok, { v: DialogInterface, _: Int ->
+                .setPositiveButton(android.R.string.ok) { v: DialogInterface, _: Int ->
                     v.dismiss()
-                }).show()
+                }.show()
     }
 }

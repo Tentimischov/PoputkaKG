@@ -20,7 +20,6 @@ class CheckSmsCodePresenter(var mView: CheckSmsCodeContract.View, var mService: 
 
             override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
                 if (response!!.isSuccessful) {
-                    mView.hideProgress()
                     mView.onSuccessCheckSmsCode(response.body()!!)
                 } else {
                     mView.hideProgress()

@@ -21,9 +21,6 @@
         <item
             android:title="@string/about_app" />
         <item
-            android:id="@+id/navItemProfileInfo"
-            android:title="@string/profile" />
-        <item
             android:id="@+id/navItemLogOut"
             android:title="@string/log_out" />
 

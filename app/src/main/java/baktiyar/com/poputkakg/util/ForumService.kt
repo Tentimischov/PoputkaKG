@@ -26,5 +26,9 @@ interface ForumService {
     @POST("routes/")
     fun createRout(@Body rout: Rout, @Header("Authorization") token :String) : Call<Rout>
 
+    @Headers("Content-Type:application/json")
+    @GET("routes/")
+    fun getRoutes(@Header("Authorization") token :String): Call<List<Rout>>
+
 
 }

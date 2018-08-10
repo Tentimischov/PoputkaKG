@@ -65,6 +65,9 @@
     <string name="filter_from_riders">Только пассажиров</string>
     <string name="filter_from_suggestions">Предложения системы</string>
     <string name="test">Тестинг</string>
+    <string name="rout_goal">Цель поездки</string>
+    <string name="read_license">Пожалуйста прочитайте политику использования приложения</string>
+    <string name="ask_sure_logout">Вы действительно хотите выйти?</string>
 
 
 </resources>

@@ -2,15 +2,20 @@ package baktiyar.com.poputkakg.ui.map
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.provider.MediaStore.Images.Media.getBitmap
 import baktiyar.com.poputkakg.R
+import baktiyar.com.poputkakg.model.Rout
 import baktiyar.com.poputkakg.ui.BaseActivity
+import baktiyar.com.poputkakg.util.Const
 import baktiyar.com.poputkakg.util.Permissions
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
 
@@ -19,6 +24,7 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
+
         init()
     }
 
@@ -64,5 +70,28 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         }
     }
 
+    protected fun drawList(list: MutableList<Rout>) {
+        if (mMap != null) {
+            list.forEach { data ->
+                if (data.startLatitude != null && data.startLongitude != null) {
+                    val latLng = LatLng(java.lang.Double.parseDouble(data.startLatitude!!), java.lang.Double.parseDouble(data.startLongitude!!))
+                    mMap!!.addMarker(MarkerOptions()
+                            .title(data.owner)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.driver_marker))
+                            .anchor(0.0f, 1.0f)
+                            .position(latLng)).tag = data
+                }
+
+                if (data.endLatitude!= null && data.endLongitude!= null) {
+                    val latLng = LatLng(java.lang.Double.parseDouble(data.endLatitude!!), java.lang.Double.parseDouble(data.endLongitude!!))
+                    mMap!!.addMarker(MarkerOptions()
+                            .title(data.owner)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.rider_marker))
+                            .anchor(0.0f, 1.0f)
+                            .position(latLng)).tag = data
+                }
+            }
+        }
+    }
 
 }

@@ -15,7 +15,7 @@ class ProfilePresenter(var mView: ProfileContract.View, var mService: ForumServi
         mService.getProfileInfo(userId, fullToken).enqueue(object : Callback<ProfileInfo>{
             override fun onFailure(call: Call<ProfileInfo>?, t: Throwable?) {
                 mView.onError(t!!.message!!.toString())
-                FileLog.e(t!!.message!!.toString(), t)
+                FileLog.e(t.message!!.toString(), t)
             }
 
             override fun onResponse(call: Call<ProfileInfo>?, response: Response<ProfileInfo>?) {
@@ -24,7 +24,6 @@ class ProfilePresenter(var mView: ProfileContract.View, var mService: ForumServi
                 }else{
                     mView.onError(response.message())
                     FileLog.e(response.message())
-
                 }
             }
         })
