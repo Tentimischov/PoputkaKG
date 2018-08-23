@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+
+        android:background="@drawable/bg_round_32dp_white"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_gravity="center"
+        android:layout_marginRight="50dp"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/name"
+                android:textSize="22sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Томми"/>
+            <TextView
+                android:layout_marginLeft="10dp"
+
+                android:textSize="22sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="-"/>
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/type"
+                android:textSize="22sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorPrimary"
+                android:text="Водитель"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textSize="18sp"
+                android:text="Откуда:"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/startAddress"
+                android:layout_marginLeft="10dp"
+                android:textSize="18sp"
+                android:text="ул.Киевская,148"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textSize="19sp"
+                android:text="Время:"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/time"
+                android:layout_marginLeft="10dp"
+                android:textSize="18sp"
+                android:text="14.00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:textSize="18sp"
+                android:text="Куда:"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/targetAddress"
+                android:layout_marginLeft="10dp"
+                android:textSize="18sp"
+                android:text="ул.Киевская,148"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:text="Cделка"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_round"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:text="Чат"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_round"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" /></LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

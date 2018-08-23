@@ -13,7 +13,7 @@ import baktiyar.com.poputkakg.R
 
 class Const {
     companion object {
-        const val URL = "http://165.227.147.84:3333/api/v1/"
+        const val URL = "http://46.101.236.211:8000/api/v1/"
 
         const val INTENT_PROFILE_INFO = "com.poputka.profileinfo"
 

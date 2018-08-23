@@ -14,6 +14,7 @@ import baktiyar.com.poputkakg.StartApplication.Companion.INSTANCE
 import baktiyar.com.poputkakg.model.Rout
 import kotlinx.android.synthetic.main.dialog_new_offer.*
 import android.widget.CompoundButton
+import baktiyar.com.poputkakg.model.Point
 import baktiyar.com.poputkakg.ui.pick_addr.PickAddressActivity
 import baktiyar.com.poputkakg.util.Const
 import baktiyar.com.poputkakg.util.Const.Companion.MAP_END
@@ -21,6 +22,7 @@ import baktiyar.com.poputkakg.util.Const.Companion.MAP_START
 import baktiyar.com.poputkakg.util.FileLog
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import java.sql.Timestamp
 
 
 class NewOfferDialog : DialogFragment(), NewOfferContract.View, View.OnClickListener {
@@ -129,17 +131,17 @@ class NewOfferDialog : DialogFragment(), NewOfferContract.View, View.OnClickList
         mRout.isDriver = mIsDriver
         mRout.isBag = mIsBag
         mRout.description = etRoutDescription.text.toString()
-
+        mRout.startTime = Timestamp(System.currentTimeMillis()).nanos
         mRout.startAddress = tvStartAddressPoint.text.toString()
         mRout.endAddress = tvEndAddressPoint.text.toString()
-
+        mRout.points = ArrayList<Point>()
         mRout.startLatitude = mStartLocation!!.latitude.toString()
         mRout.startLongitude = mStartLocation!!.longitude.toString()
 
         mRout.endLatitude = mEndLocation!!.latitude.toString()
         mRout.endLongitude = mEndLocation!!.longitude.toString()
 
-        mPresenter.sendOffer(mRout, mToken)
+        mPresenter.sendOffer(mRout, Const.TOKEN_PREFIX+mToken)
     }
 
 
