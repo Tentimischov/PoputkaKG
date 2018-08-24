@@ -2,7 +2,6 @@ package baktiyar.com.poputkakg.ui.map
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.provider.MediaStore.Images.Media.getBitmap
 import android.util.TypedValue
 import android.view.View
 import android.widget.RelativeLayout
@@ -10,15 +9,14 @@ import android.widget.Toast
 import baktiyar.com.poputkakg.R
 import baktiyar.com.poputkakg.model.Rout
 import baktiyar.com.poputkakg.ui.BaseActivity
-import baktiyar.com.poputkakg.ui.user_short_dialog.UserShortDialog
-import baktiyar.com.poputkakg.util.Const
+import baktiyar.com.poputkakg.ui.user_short_dialog.DownloadAsyncTask
+import baktiyar.com.poputkakg.ui.user_short_dialog.MarkerClickDialog
 import baktiyar.com.poputkakg.util.Permissions
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
 
@@ -106,34 +104,48 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                             .position(latLng)).tag = data
                 }
             }
-            setOnMarketClickListeners(list)
+            setOnMarkerClickListeners(list)
         }
     }
 
-    private fun setOnMarketClickListeners(list:MutableList<Rout>) {
+    private fun setOnMarkerClickListeners(list:MutableList<Rout>) {
         mMap!!.setOnMarkerClickListener {
             openCurrentRiderInformationDialogFragment(it,list)
         }
     }
 
     private fun openCurrentRiderInformationDialogFragment(it: Marker?, list: MutableList<Rout>): Boolean {
+        var currentMarkerRout = Rout()
         for(i in 0..list.size-1){
             if(it!!.title == list.get(i).owner){
-                val startLatLng:LatLng = LatLng(list.get(i).startLatitude!!.toDouble(),
-                        list.get(i).startLongitude!!.toDouble())
-                val endLatLng:LatLng = LatLng(list.get(i).endLatitude!!.toDouble(),
-                        list.get(i).endLongitude!!.toDouble())
-                mMap!!.addPolyline(PolylineOptions().add(startLatLng,endLatLng).width(10f)
-                        .color(R.color.colorPrimary).visible(true).clickable(true))
-
+                currentMarkerRout = list.get(i)
+                 val url = getUrlToTheGoogleDirectionsApi(currentMarkerRout.startLatitude,
+                         currentMarkerRout.startLongitude,currentMarkerRout.endLatitude,
+                         currentMarkerRout.endLongitude)
+                val downloadTask:DownloadAsyncTask= DownloadAsyncTask(mMap)
+                downloadTask.execute(url)
+                Toast.makeText(this,"Done",Toast.LENGTH_SHORT).show()
 
             }
-
-
         }
-        val dialog = UserShortDialog.newInstance()
-        dialog.show(fragmentManager,"dialog")
+
+        //val dialog = MarkerClickDialog(currentMarkerRout)
+        //dialog.show(fragmentManager,"dialog")
         return true
     }
+
+    private fun getUrlToTheGoogleDirectionsApi(startLatitude: String?, startLongitude: String?,
+                                               endLatitude: String?, endLongitude: String?): String? {
+        val strOrigin = "origin="+startLatitude+","+startLongitude
+        val strDest  ="destination="+endLatitude+","+endLongitude
+        val sensor = "sensoe=false"
+        val mode ="mode=driving"
+        val parameters = strOrigin+"&"+strDest+"&"+sensor+"&"+mode
+        val output = "json"
+        val url:String? = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters
+        return url
+
+    }
+
 
 }
