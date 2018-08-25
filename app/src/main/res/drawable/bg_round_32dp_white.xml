@@ -5,10 +5,10 @@
         <shape>
             <solid android:color="@color/white" />
             <corners
-                android:bottomLeftRadius="@dimen/btn_radius_32dp"
-                android:bottomRightRadius="@dimen/btn_radius_32dp"
-                android:topLeftRadius="@dimen/btn_radius_32dp"
-                android:topRightRadius="@dimen/btn_radius_32dp" />
+                android:bottomLeftRadius="50dp"
+                android:bottomRightRadius="50dp"
+                android:topLeftRadius="50dp"
+                android:topRightRadius="50dp" />
         </shape>
     </item>
 

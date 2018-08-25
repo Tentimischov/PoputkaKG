@@ -24,10 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.activity_pick_addr.*
 import java.util.*
 
@@ -120,6 +117,8 @@ class PickAddressActivity : AppCompatActivity(), PickAddressContract.View, OnMap
         mMap!!.uiSettings.isZoomControlsEnabled = true
         mMap!!.uiSettings.isMyLocationButtonEnabled = true
         mMap!!.mapType = GoogleMap.MAP_TYPE_NORMAL
+        val success = googleMap!!.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(this,R.raw.style_json))
         // По умолчанию Ориентир Бишкек
         val startLatLng = LatLng(42.8746, 74.5698)
         val camPos = CameraPosition.Builder().target(startLatLng).zoom(13f).build()

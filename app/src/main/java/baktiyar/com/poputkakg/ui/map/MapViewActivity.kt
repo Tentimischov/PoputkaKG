@@ -2,6 +2,7 @@ package baktiyar.com.poputkakg.ui.map
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.RelativeLayout
@@ -49,11 +50,14 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         val mapFragment :SupportMapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         val zoomControls : View = mapFragment.view!!.findViewById(0x1)
         if(zoomControls != null) {
-            val params: RelativeLayout.LayoutParams = zoomControls.layoutParams as RelativeLayout.LayoutParams
-            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
-            params.addRule(RelativeLayout.ALIGN_PARENT_TOP)
-            val margin :Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,10f,resources.displayMetrics).toInt()
-            params.setMargins(margin,80,margin,margin)
+            moveZoomButtonsToTop(zoomControls)
+            val success = googleMap!!.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(this,R.raw.style_json))
+            if(!success){
+                Log.d("STYLE: ","Style parsing failed")
+            }
+
+
 
         }
         // По умолчанию Ориентир Бишкек
@@ -63,6 +67,14 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         mMap!!.setOnMyLocationButtonClickListener(this)
         if (Permissions.iPermissionLocation(this))
             setMyLocationEnable()
+    }
+
+    private fun moveZoomButtonsToTop(zoomControls: View) {
+        val params: RelativeLayout.LayoutParams = zoomControls.layoutParams as RelativeLayout.LayoutParams
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP)
+        val margin :Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,10f,resources.displayMetrics).toInt()
+        params.setMargins(margin,80,margin,margin)
     }
 
     override fun onMyLocationButtonClick(): Boolean = false
@@ -124,13 +136,13 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                          currentMarkerRout.endLongitude)
                 val downloadTask:DownloadAsyncTask= DownloadAsyncTask(mMap)
                 downloadTask.execute(url)
-                Toast.makeText(this,"Done",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Поиск оптимального пути",Toast.LENGTH_SHORT).show()
 
             }
         }
 
-        //val dialog = MarkerClickDialog(currentMarkerRout)
-        //dialog.show(fragmentManager,"dialog")
+        val dialog = MarkerClickDialog(currentMarkerRout)
+        dialog.show(fragmentManager,"dialog")
         return true
     }
 

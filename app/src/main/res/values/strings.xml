@@ -68,6 +68,8 @@
     <string name="rout_goal">Цель поездки</string>
     <string name="read_license">Пожалуйста прочитайте политику использования приложения</string>
     <string name="ask_sure_logout">Вы действительно хотите выйти?</string>
+    <string name="channel_name">notification</string>
+    <string name="spinnerText">Город</string>
 
 
 </resources>

@@ -2,11 +2,14 @@ package baktiyar.com.poputkakg.ui
 
 import android.app.ActivityManager
 import android.app.AlertDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.PorterDuff
+import android.os.Build
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
@@ -121,6 +124,19 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val cn = am.getRunningTasks(1)[0].topActivity
         return !cn.shortClassName.contains(o.simpleName)
+    }
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = getString(R.string.channel_name)
+            val description = getString(R.string.channel_name)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(getString(R.string.channel_name),name,importance)
+            channel.description= description
+
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+
+        }
     }
 
     private fun logOut() {

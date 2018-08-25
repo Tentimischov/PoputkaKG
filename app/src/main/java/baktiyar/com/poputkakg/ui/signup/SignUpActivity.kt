@@ -64,20 +64,19 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
 
         spinnerSitiesSignUp.adapter = CitiesSpinnerAdapter(this, mCities)
 
-        spinnerSitiesSignUp.setSelection(1)
     }
 
     private fun onUserButtonClick(isDriver: Boolean) {
         if (isDriver) {
             mIsDriver = true
+            btnIsDriverSignUp.setBackgroundResource(R.drawable.bg_round)
+            btnIsRiderSignUp.setBackgroundResource(R.drawable.bg_round_gray)
 
-            btnIsDriverSignUp.setBackgroundColor(resources.getColor(R.color.lightGray))
-            btnIsRiderSignUp.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
         } else {
             mIsDriver = false
 
-            btnIsDriverSignUp.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
-            btnIsRiderSignUp.setBackgroundColor(resources.getColor(R.color.lightGray))
+            btnIsDriverSignUp.setBackgroundResource(R.drawable.bg_round_gray)
+            btnIsRiderSignUp.setBackgroundResource(R.drawable.bg_round)
         }
 
     }
@@ -85,10 +84,10 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
     override fun onClick(v: View?) {
         when (v) {
             btnIsRiderSignUp -> {
-                onUserButtonClick(true)
+                onUserButtonClick(false)
             }
             btnIsDriverSignUp -> {
-                onUserButtonClick(false)
+                onUserButtonClick(true)
             }
 
             btnSignUp -> {

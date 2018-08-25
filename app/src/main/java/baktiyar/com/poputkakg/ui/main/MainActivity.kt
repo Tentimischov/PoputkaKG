@@ -82,6 +82,7 @@ class MainActivity : MapViewActivity(), MainContract.View {
     }
 
     override fun onSuccessGetRoutes(routs: List<Rout>) {
+
         mRoutList = routs as MutableList<Rout>
         drawList(mRoutList)
         hideProgress()

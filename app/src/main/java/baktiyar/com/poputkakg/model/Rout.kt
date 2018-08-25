@@ -12,6 +12,9 @@ class Rout {
     @SerializedName("owner")
     @Expose
     var owner: String? = null
+    @SerializedName("name")
+    @Expose
+    var name:String? = null
     @SerializedName("description")
     @Expose
     var description: String? = null

@@ -18,7 +18,7 @@ class MarkerClickDialog(currentMarkerRout: Rout) : DialogFragment() {
     private lateinit var mPresenter : MarkerClickContract.Presenter
     private val mRout = currentMarkerRout
     private fun setFillMarkerDialogInformation(view: View,currentMarkerRout: Rout) {
-            view.name.text = currentMarkerRout.description
+            view.name.text = currentMarkerRout.name
             view.type.text  = when(currentMarkerRout.isDriver){
                 true-> "Водитель"
                 else-> "Пассажир"

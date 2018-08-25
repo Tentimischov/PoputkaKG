@@ -22,7 +22,7 @@
     <dimen name="margin_32">32dp</dimen>
     <dimen name="text_23sp">23sp</dimen>
     <dimen name="btn_radius">4dp</dimen>
-    <dimen name="btn_radius_8dp">8dp</dimen>
+    <dimen name="btn_radius_8dp">12dp</dimen>
     <dimen name="height_edit_text">50dp</dimen>
     <dimen name="btn_radius_32dp">32dp</dimen>
     <dimen name="margin_12">12dp</dimen>

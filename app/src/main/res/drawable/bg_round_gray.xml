@@ -3,7 +3,7 @@
 
     <item>
         <shape>
-            <solid android:color="@color/colorPrimaryDark" />
+            <solid android:color="@color/lightGray"/>
             <corners
                 android:bottomLeftRadius="@dimen/btn_radius_8dp"
                 android:bottomRightRadius="@dimen/btn_radius_8dp"
