@@ -70,6 +70,11 @@
     <string name="ask_sure_logout">Вы действительно хотите выйти?</string>
     <string name="channel_name">notification</string>
     <string name="spinnerText">Город</string>
+    <string name="wrong_nubmber_or_login">Неверно указан номер телефона или пароль</string>
+    <string name="restore_text">Восстановление</string>
+    <string name="restore_text2">Пароля</string>
+    <string name="restore_hint">Введите ваш номер телефона</string>
+    <string name="send_code">Отправить код</string>
 
 
 </resources>
