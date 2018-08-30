@@ -13,8 +13,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
 import baktiyar.com.poputkakg.R
+import baktiyar.com.poputkakg.model.Point
 import baktiyar.com.poputkakg.util.Const.Companion.MAP_LOCATION
+import baktiyar.com.poputkakg.util.Const.Companion.MAP_POINTS_ADDRESS
+import baktiyar.com.poputkakg.util.Const.Companion.MAP_POINT_RESULT
 import baktiyar.com.poputkakg.util.Const.Companion.MAP_RESULT
 import baktiyar.com.poputkakg.util.LocationsManager
 import baktiyar.com.poputkakg.util.Permissions
@@ -34,7 +38,8 @@ class PickAddressActivity : AppCompatActivity(), PickAddressContract.View, OnMap
     private var mMap: GoogleMap? = null
     private var mAdapter: PlaceAutoCompleteAdapter? = null
     private var mGoogleApiClient: GoogleApiClient? = null
-
+    private val pointsList = ArrayList<Point>()
+    private val addressList = ArrayList<String>()
     private lateinit var mPresenter: PickAddressPresenter
     private var mDefaultLocation = LatLng(42.8746, 74.5698)
 
@@ -169,10 +174,31 @@ class PickAddressActivity : AppCompatActivity(), PickAddressContract.View, OnMap
     }
 
     private fun setPickedAddress(address: String) {
-        setResult(Activity.RESULT_OK, Intent()
-                .putExtra(MAP_RESULT, address)
-                .putExtra(MAP_LOCATION, mDefaultLocation))
-        finish()
+        val isAdditional = intent.getBooleanExtra("isAdditional",false)
+        if(isAdditional){
+            if(pointsList.size == 2)
+            {
+                setResult(Activity.RESULT_OK,Intent()
+                        .putExtra(MAP_POINT_RESULT,pointsList)
+                        .putExtra(MAP_POINTS_ADDRESS,addressList))
+                finish()
+            }
+            var point = Point()
+            point.lat= mDefaultLocation.latitude.toString()
+            point.lon = mDefaultLocation.longitude.toString()
+            addressList.add(address)
+            pointsList.add(point)
+            Toast.makeText(this,"Введите еще "
+                    +(3-pointsList.size)+" точек",Toast.LENGTH_SHORT).show()
+            tvAutoCompleteAddress.text.clear()
+        }
+
+        else{
+            setResult(Activity.RESULT_OK, Intent()
+                    .putExtra(MAP_RESULT, address)
+                    .putExtra(MAP_LOCATION, mDefaultLocation))
+            finish()
+        }
     }
 
 

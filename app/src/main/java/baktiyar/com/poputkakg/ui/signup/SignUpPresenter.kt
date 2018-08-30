@@ -1,16 +1,26 @@
 package baktiyar.com.poputkakg.ui.signup
 
+import android.content.Context
+import baktiyar.com.poputkakg.StartApplication
 import baktiyar.com.poputkakg.model.City
 import baktiyar.com.poputkakg.model.ProfileInfo
+import baktiyar.com.poputkakg.model.TokenInfo
 import baktiyar.com.poputkakg.model.User
+import baktiyar.com.poputkakg.util.Const
+import baktiyar.com.poputkakg.util.DeviceNameTools
 import baktiyar.com.poputkakg.util.FileLog
 import baktiyar.com.poputkakg.util.ForumService
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 class SignUpPresenter(var mView: SignUpContract.View, var mService: ForumService) : SignUpContract.Presenter {
+
+
+
+
 
     override fun signUp(user: User) {
 

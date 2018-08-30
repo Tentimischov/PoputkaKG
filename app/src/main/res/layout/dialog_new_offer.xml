@@ -70,15 +70,47 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_16"
-                android:src="@drawable/ic_map_to" />
-
+                android:src="@drawable/ic_map_from" />
 
             <TextView
                 android:id="@+id/tvStartAddressPoint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16"
-                android:hint="@string/start_adress"
+                android:text="@string/start_street"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginRight="@dimen/margin_16"
+                android:background="@drawable/bg_round"
+                android:backgroundTint="@color/white" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/additional_address"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+
+            <ImageView
+                android:id="@+id/ivAdditionalAddressPoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_16"
+                android:src="@drawable/ic_map_from" />
+
+
+            <TextView
+                android:id="@+id/tvAdditionalAddressPoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:hint="@string/additional_hint_address"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightGray" />
@@ -94,6 +126,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvSetEndPoint"
                 android:layout_marginTop="@dimen/margin_16"
                 android:text="@string/set_up_to_point"
                 android:textAlignment="center"
@@ -105,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_16"
-                android:src="@drawable/ic_map_from" />
+                android:src="@drawable/ic_map_to" />
 
 
             <TextView

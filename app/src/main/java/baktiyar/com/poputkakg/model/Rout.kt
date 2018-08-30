@@ -53,6 +53,6 @@ class Rout {
     var startTime: Int? = null
     @SerializedName("points")
     @Expose
-    var points: List<Point>? = null
+    var points: ArrayList<Point>? = null
 
 }

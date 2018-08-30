@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -17,8 +18,10 @@ import java.net.URL;
 
 public class DownloadAsyncTask extends AsyncTask {
     GoogleMap map ;
+    PolylineOptions polylineOptions;
     public DownloadAsyncTask(@Nullable GoogleMap mMap) {
         map = mMap;
+
     }
 
     @Override

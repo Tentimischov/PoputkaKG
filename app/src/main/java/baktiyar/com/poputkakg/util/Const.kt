@@ -26,10 +26,15 @@ class Const {
         const val PREFS_CHECK_USER_ID = "baktiyar.com.poputka_user_id_prefs"
         const val PREFS_CHECK_IS_DRIVER = "baktiyar.com.poputka_is_driver_prefs"
         const val TOKEN_PREFIX: String = "Token "
+        const val MAP_ADDITIONAL_POINTS = 2
+
 
 
         const val MAP_RESULT = "map_result"
         const val MAP_LOCATION = "location"
+        const val MAP_POINT_RESULT = "points"
+        const val MAP_POINTS_ADDRESS = "pointAddressses"
+        const val FIREBASE_TOKEN = "FirebaseToken"
 
         fun hideKeyboard(activity: Activity) {
             val view: View? = activity.window.currentFocus

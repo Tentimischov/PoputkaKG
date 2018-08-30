@@ -2,6 +2,9 @@ package baktiyar.com.poputkakg.ui.map
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.content.res.Configuration
+import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -18,19 +21,37 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.launch
+import java.util.*
 
 open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
 
 
     private var mMap: GoogleMap? = null
 
+    @SuppressLint("ObsoleteSdkInt")
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
+        val languageToLoad = "ru"
+        val locale = Locale(languageToLoad)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            config.setLocale(locale)
+            applicationContext.createConfigurationContext(config)
+        } else {
 
+            config.locale = locale
+            resources.updateConfiguration(config, resources.displayMetrics)
+        }
         init()
+
     }
 
-    private fun init() {
+        private fun init() {
         initGoogleMap()
     }
 
@@ -46,6 +67,7 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         mMap!!.uiSettings.isZoomControlsEnabled = true
         mMap!!.uiSettings.isMyLocationButtonEnabled = true
         mMap!!.mapType = GoogleMap.MAP_TYPE_NORMAL
+
 
         val mapFragment :SupportMapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         val zoomControls : View = mapFragment.view!!.findViewById(0x1)
@@ -95,7 +117,7 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         }
     }
 
-    protected fun drawList(list: MutableList<Rout>) {
+    protected  fun drawList(list: MutableList<Rout>) {
         if (mMap != null) {
             list.forEach { data ->
                 if (data.startLatitude != null && data.startLongitude != null) {
@@ -126,17 +148,12 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         }
     }
 
-    private fun openCurrentRiderInformationDialogFragment(it: Marker?, list: MutableList<Rout>): Boolean {
+    private  fun openCurrentRiderInformationDialogFragment(it: Marker?, list: MutableList<Rout>): Boolean {
         var currentMarkerRout = Rout()
         for(i in 0..list.size-1){
             if(it!!.title == list.get(i).owner){
                 currentMarkerRout = list.get(i)
-                 val url = getUrlToTheGoogleDirectionsApi(currentMarkerRout.startLatitude,
-                         currentMarkerRout.startLongitude,currentMarkerRout.endLatitude,
-                         currentMarkerRout.endLongitude)
-                val downloadTask:DownloadAsyncTask= DownloadAsyncTask(mMap)
-                downloadTask.execute(url)
-                Toast.makeText(this,"Поиск оптимального пути",Toast.LENGTH_SHORT).show()
+                getPathPolylines(currentMarkerRout)
 
             }
         }
@@ -146,11 +163,35 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         return true
     }
 
+    private  fun getPathPolylines(currentMarkerRout: Rout) {
+
+        val urlPath = getUrlToTheGoogleDirectionsApi(currentMarkerRout.startLatitude,
+                currentMarkerRout.startLongitude,currentMarkerRout.endLatitude,currentMarkerRout.endLongitude)
+        val downloadTasker = DownloadAsyncTask(mMap)
+        downloadTasker.execute(urlPath)
+
+
+        Toast.makeText(this,"Поиск оптимального пути",Toast.LENGTH_SHORT).show()
+
+
+    }
+
+
+
+
+
+
+    }
+
+    private fun getUrlAddress(startLatitude: String?, startLongitude: String?, lat: String?, lon: String?): Any? {
+       return getUrlToTheGoogleDirectionsApi(startLatitude,startLongitude,lat,lon)
+    }
+
     private fun getUrlToTheGoogleDirectionsApi(startLatitude: String?, startLongitude: String?,
                                                endLatitude: String?, endLongitude: String?): String? {
         val strOrigin = "origin="+startLatitude+","+startLongitude
         val strDest  ="destination="+endLatitude+","+endLongitude
-        val sensor = "sensoe=false"
+        val sensor = "sensor=false"
         val mode ="mode=driving"
         val parameters = strOrigin+"&"+strDest+"&"+sensor+"&"+mode
         val output = "json"
@@ -160,4 +201,3 @@ open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
     }
 
 
-}

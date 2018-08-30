@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "198943072643",
-    "firebase_url": "https://poputkakg-b15e3.firebaseio.com",
-    "project_id": "poputkakg-b15e3",
-    "storage_bucket": "poputkakg-b15e3.appspot.com"
+    "project_number": "903503758868",
+    "firebase_url": "https://poputkakg-71359.firebaseio.com",
+    "project_id": "poputkakg-71359",
+    "storage_bucket": "poputkakg-71359.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:198943072643:android:8b9f6e26ca1e44c4",
+        "mobilesdk_app_id": "1:903503758868:android:8b9f6e26ca1e44c4",
         "android_client_info": {
           "package_name": "baktiyar.com.poputkakg"
         }
       },
       "oauth_client": [
         {
-          "client_id": "198943072643-6bn5vaqm6g8goeaavbk1nmh0m5kqs89d.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "baktiyar.com.poputkakg",
-            "certificate_hash": "623b4e40e75b902982d29a80fd20e09172f386ce"
-          }
-        },
-        {
-          "client_id": "198943072643-b3nrle4k4cgbbeqis9uf0dsutb013v8o.apps.googleusercontent.com",
+          "client_id": "903503758868-lbvmo144n1nkkja44p86vbqm9ld0pups.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDyB4ylNT-H1ahSrE3p9DNwQVTbi6EczcM"
+          "current_key": "AIzaSyDiUnQBtlfZfdgdZz05BEKckT5l6Z6DCHw"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "198943072643-b3nrle4k4cgbbeqis9uf0dsutb013v8o.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

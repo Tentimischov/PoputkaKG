@@ -16,12 +16,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import baktiyar.com.poputkakg.util.Const;
 import baktiyar.com.poputkakg.util.DIrectionsJsonParser;
 
 class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
     GoogleMap googleMap ;
+    int counter ;
+
     public ParserTask(GoogleMap map) {
         googleMap = map;
+
     }
 
     @Override
@@ -45,9 +49,9 @@ class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, St
     protected void onPostExecute(List<List<HashMap<String, String>>> result) {
         super.onPostExecute(result);
         ArrayList points  = null;
-        PolylineOptions lineOptions = null;
+        PolylineOptions lineOptions;
         MarkerOptions markerOptions = new MarkerOptions();
-
+        lineOptions = new PolylineOptions();
         for (int i = 0; i <result.size() ; i++) {
             points = new ArrayList();
             lineOptions =  new PolylineOptions();
@@ -67,8 +71,9 @@ class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, St
             lineOptions.geodesic(true);
             
         }
-        //here add lines to map
-        googleMap.addPolyline(lineOptions);
+
+            googleMap.addPolyline(lineOptions);
+
 
     }
 }

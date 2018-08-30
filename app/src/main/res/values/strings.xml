@@ -57,7 +57,7 @@
 
 
     <string name="success">Успешно прошло</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Загрузка...</string>
     <string name="sms_code">Введите СМС-код</string>
     <string name="filter_from_all">Всех</string>
     <string name="filter">Загрузить</string>
@@ -75,6 +75,9 @@
     <string name="restore_text2">Пароля</string>
     <string name="restore_hint">Введите ваш номер телефона</string>
     <string name="send_code">Отправить код</string>
+    <string name="driver_endAdress_text">Укажите не менее 5 точек назначения:</string>
+    <string name="additional_address">Дополнительные пункты прибытия</string>
+    <string name="additional_hint_address">Дополнительные точки</string>
 
 
 </resources>

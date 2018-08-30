@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
@@ -39,6 +40,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var mHeaderView: View
     private lateinit var mIvUserImage: CircleImageView
     private lateinit var mTvUserName: TextView
+    private lateinit var mTvSuggestion: MenuItem
     private lateinit var mTvUserStatus: TextView
 
 
@@ -50,10 +52,9 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         mNavView = findViewById(R.id.nav_view)
         mFrameLayout = findViewById(R.id.content_frame)
         mToolbar = findViewById(R.id.toolbar)
-        mNavView.inflateHeaderView(R.layout.partial_nav_header);
-
+        mTvSuggestion = mNavView.menu.findItem(R.id.navItemSettingsStage)
+        mNavView.inflateHeaderView(R.layout.partial_nav_header)
         mHeaderView = mNavView.getHeaderView(0)
-
         mIvUserImage = mHeaderView.findViewById(R.id.ivProfileHeaderImage) as CircleImageView
         mTvUserName = mHeaderView.findViewById(R.id.tvUserName) as TextView
         mTvUserStatus = mHeaderView.findViewById(R.id.tvUserStatus) as TextView
@@ -65,9 +66,18 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         mTvUserName.text = "textName"
         mTvUserStatus.text = "textStatus"
 
+
         mTvUserName.setOnClickListener { startActivity(Intent(this, ProfileActivity::class.java)) }
+        mTvSuggestion.setOnMenuItemClickListener {
+            startIntent()
+        }
 
         init()
+    }
+
+    private fun startIntent(): Boolean {
+        startActivity(Intent(this,ProfileActivity::class.java))
+        return true
     }
 
     private fun init() {

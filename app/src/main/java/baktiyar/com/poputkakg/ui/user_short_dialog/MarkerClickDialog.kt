@@ -2,23 +2,33 @@ package baktiyar.com.poputkakg.ui.user_short_dialog
 
 import android.annotation.SuppressLint
 import android.app.DialogFragment
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import baktiyar.com.poputkakg.R
+import baktiyar.com.poputkakg.model.DealBody
 import baktiyar.com.poputkakg.model.Rout
 import kotlinx.android.synthetic.main.dialog_marker_click.*
 import kotlinx.android.synthetic.main.dialog_marker_click.view.*
 
 @SuppressLint("ValidFragment")
-class MarkerClickDialog(currentMarkerRout: Rout) : DialogFragment() {
+class MarkerClickDialog(currentMarkerRout: Rout) : DialogFragment(),MarkerClickContract.View {
+    override fun OnSuccessOfferDeal(dealUser: DealBody) {
+        view.btnDeal.isClickable = false
+        view.btnDeal.setBackgroundResource(R.drawable.bg_round_gray)
+    }
+
+    override fun onError(message: String) {
+
+    }
 
     private lateinit var mPresenter : MarkerClickContract.Presenter
     private val mRout = currentMarkerRout
     private fun setFillMarkerDialogInformation(view: View,currentMarkerRout: Rout) {
-            view.name.text = currentMarkerRout.name
+            view.name.text = currentMarkerRout.owner
             view.type.text  = when(currentMarkerRout.isDriver){
                 true-> "Водитель"
                 else-> "Пассажир"
@@ -26,6 +36,11 @@ class MarkerClickDialog(currentMarkerRout: Rout) : DialogFragment() {
             view.startAddress.text = currentMarkerRout.startAddress
             view.targetAddress.text = currentMarkerRout.endAddress
             view.time.text = currentMarkerRout.startTime.toString()
+            view.btnDeal.setOnClickListener {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    mPresenter.offerDeal(currentMarkerRout.id,context)
+                }
+            }
         }
 
 
@@ -36,6 +51,7 @@ class MarkerClickDialog(currentMarkerRout: Rout) : DialogFragment() {
             dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
 
         }
+        mPresenter = MarkerClickPresenter(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
