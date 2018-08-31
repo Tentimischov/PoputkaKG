@@ -90,7 +90,7 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View, HistoryAdapte
         }else{
             ivProfileImage.visibility = View.GONE
         }
-        tvProfileName.text = profileInfo.firstName + " " + profileInfo.lastName
+        tvProfileName.text = profileInfo.firstName
         tvProfileCity.text = profileInfo.city
         tvProfilePhoneNumber.text = profileInfo.phone
         if (profileInfo.dealsCount != null) {
