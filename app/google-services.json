@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "903503758868",
+    "firebase_url": "https://poputkakg-71359.firebaseio.com",
+    "project_id": "poputkakg-71359",
+    "storage_bucket": "poputkakg-71359.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903503758868:android:8b9f6e26ca1e44c4",
+        "android_client_info": {
+          "package_name": "baktiyar.com.poputkakg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "903503758868-lbvmo144n1nkkja44p86vbqm9ld0pups.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiUnQBtlfZfdgdZz05BEKckT5l6Z6DCHw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
