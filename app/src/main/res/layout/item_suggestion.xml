@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_32"
+    android:gravity="center_horizontal"
+    android:background="@drawable/bg_round_32dp_white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id = "@+id/tvName"
+            android:textStyle="bold"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/text_16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "Томми"
+            />
+        <TextView
+        android:textStyle="bold"
+        android:textSize="@dimen/text_16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = " - "
+        />
+        <TextView
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold|italic"
+            android:textSize="@dimen/text_16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "Водитель"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:textColor="@color/lightGray"
+            android:textSize="@dimen/text_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "@string/time"
+            />
+        <TextView
+            android:textSize="@dimen/text_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = " - "
+            />
+        <TextView
+            android:id="@+id/tvTime"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/text_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "03.04.2018| 07.30"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:textColor="@color/lightGray"
+            android:textSize="@dimen/text_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "@string/from"
+            />
+        <TextView
+            android:textSize="@dimen/text_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = " - "
+            />
+        <TextView
+            android:id="@+id/tvFrom"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/text_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "пр.Чынгыза Айтматова,35"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:textColor="@color/lightGray"
+            android:textSize="@dimen/text_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "@string/to"
+            />
+        <TextView
+            android:textSize="@dimen/text_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = " - "
+            />
+        <TextView
+            android:id="@+id/tvTo"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/text_12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "AUCA"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnDeal"
+            android:text="@string/btnDeal"
+            android:textColor="@color/white"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/bg_round"
+            android:layout_marginRight="@dimen/margin_32"
+            android:layout_height="40dp" />
+
+        <Button
+            android:id="@+id/btnChat"
+            android:text="@string/btnChat"
+            android:textColor="@color/white"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_round" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -49,6 +49,7 @@
         <activity android:name=".ui.pick_addr.PickAddressActivity" />
         <activity android:name=".ui.map.MapViewActivity" />
         <activity android:name=".ui.checksms.CheckSmsCodeActivity" />
+        <activity android:name=".ui.suggestions.SuggestionActivity"/>
     </application>
 
 </manifest>

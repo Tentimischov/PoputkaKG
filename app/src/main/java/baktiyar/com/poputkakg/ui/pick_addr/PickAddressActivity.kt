@@ -160,8 +160,8 @@ class PickAddressActivity : AppCompatActivity(), PickAddressContract.View, OnMap
             mMap!!.clear()
             mMap!!.addMarker(MarkerOptions().icon(
                     BitmapDescriptorFactory
-                            .fromResource(R.mipmap.ic_launcher))
-                    .anchor(0.0f, 1.0f)
+                            .fromResource(R.mipmap.my_location))
+                    .anchor(0.0f, 0.0f)
                     .position(mDefaultLocation))
             mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.Builder()
                     .target(mDefaultLocation).zoom(15f).build()))
@@ -176,18 +176,18 @@ class PickAddressActivity : AppCompatActivity(), PickAddressContract.View, OnMap
     private fun setPickedAddress(address: String) {
         val isAdditional = intent.getBooleanExtra("isAdditional",false)
         if(isAdditional){
-            if(pointsList.size == 2)
+            var point = Point()
+            point.lat= mDefaultLocation.latitude.toString()
+            point.lon = mDefaultLocation.longitude.toString()
+            addressList.add(address)
+            pointsList.add(point)
+            if(pointsList.size == 3)
             {
                 setResult(Activity.RESULT_OK,Intent()
                         .putExtra(MAP_POINT_RESULT,pointsList)
                         .putExtra(MAP_POINTS_ADDRESS,addressList))
                 finish()
             }
-            var point = Point()
-            point.lat= mDefaultLocation.latitude.toString()
-            point.lon = mDefaultLocation.longitude.toString()
-            addressList.add(address)
-            pointsList.add(point)
             Toast.makeText(this,"Введите еще "
                     +(3-pointsList.size)+" точек",Toast.LENGTH_SHORT).show()
             tvAutoCompleteAddress.text.clear()

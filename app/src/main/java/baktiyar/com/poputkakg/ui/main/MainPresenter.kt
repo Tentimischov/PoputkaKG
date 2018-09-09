@@ -47,8 +47,10 @@ class MainPresenter(var mView: MainContract.View, var mService: ForumService) : 
         val type = "android"
         val name = DeviceNameTools.getDeviceName()
         val device_id =firstName
+        val active = true
         val token = context.getSharedPreferences(Const.PREFS_FILENAME,0).getString(Const.FIREBASE_TOKEN,"null")
         body.addFormDataPart("registration_id",token)
+        body.addFormDataPart("active", active.toString()    )
         body.addFormDataPart("type",type)
         body.addFormDataPart("name",name)
         body.addFormDataPart("device_id",device_id)

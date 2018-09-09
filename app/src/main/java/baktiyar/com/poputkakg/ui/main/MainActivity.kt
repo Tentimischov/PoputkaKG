@@ -1,7 +1,9 @@
 package baktiyar.com.poputkakg.ui.main
 
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.app.AlertDialog
+import android.view.View
 import baktiyar.com.poputkakg.R
 import baktiyar.com.poputkakg.StartApplication.Companion.INSTANCE
 import baktiyar.com.poputkakg.model.Rout
@@ -10,16 +12,19 @@ import baktiyar.com.poputkakg.ui.BaseActivity
 import baktiyar.com.poputkakg.ui.map.MapViewActivity
 import baktiyar.com.poputkakg.ui.offer.create_offer.NewOfferDialog
 import baktiyar.com.poputkakg.util.Const
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_new_offer.*
+import java.util.*
 
 class MainActivity : MapViewActivity(), MainContract.View {
 
 
     private lateinit var mPresenter: MainContract.Presenter
     private lateinit var mToken: String
+    private lateinit var bottomSheet:BottomSheetBehavior<View>
     private var mRoutList: MutableList<Rout> = mutableListOf()
 
 
@@ -39,8 +44,12 @@ class MainActivity : MapViewActivity(), MainContract.View {
     }
 
     private fun init() {
-        ivCreateSuggestion.setOnClickListener { showNewOfferDialog() }
+        ivCreateSuggestion.setOnClickListener { showNewOfferDialog()
+        }
         ivFilterSettings.setOnClickListener { showFilterDialog() }
+
+        imgZoomPlus.setOnClickListener { mMap!!.animateCamera(CameraUpdateFactory.zoomIn()) }
+        imgZoomMinus.setOnClickListener { mMap!!.animateCamera(CameraUpdateFactory.zoomOut()) }
 
         initPresenter()
     }
@@ -64,26 +73,19 @@ class MainActivity : MapViewActivity(), MainContract.View {
     private fun showFilterDialog() {
         val args = arrayOf<String>(
                 getString(R.string.filter_from_all),
-                getString(R.string.filter_from_drivers),
-                getString(R.string.filter_from_riders),
                 getString(R.string.filter_from_suggestions))
         AlertDialog.Builder(this).setTitle(getString(R.string.filter)).setItems(args) { dialog, w ->
             when (w) {
                 0 -> {
                     getRoutes()
+
                 }
                 1 -> {
-                    //TODO make filter for drivers
+                    mMap!!.clear()
                     getRoutes()
                 }
-                2 -> {
-                    //TODO make filter for riders
-                    getRoutes()
-                }
-                3 -> {
-                    //TODO make filter for suggestions
-                    getRoutes()
-                }
+
+
             }
             dialog.dismiss()
         }.show()
@@ -97,6 +99,7 @@ class MainActivity : MapViewActivity(), MainContract.View {
     override fun onSuccessGetRoutes(routs: List<Rout>) {
 
         mRoutList = routs as MutableList<Rout>
+
         drawList(mRoutList)
         hideProgress()
     }

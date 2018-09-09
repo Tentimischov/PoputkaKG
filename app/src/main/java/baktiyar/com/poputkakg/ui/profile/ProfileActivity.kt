@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import baktiyar.com.poputkakg.R
@@ -90,9 +91,9 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View, HistoryAdapte
         }else{
             ivProfileImage.visibility = View.GONE
         }
-        tvProfileName.text = profileInfo.firstName
-        tvProfileCity.text = profileInfo.city
-        tvProfilePhoneNumber.text = profileInfo.phone
+        tvProfileName.setText( profileInfo.firstName)
+        tvProfileCity.setText( profileInfo.city)
+        tvProfilePhoneNumber.setText( profileInfo.phone)
         if (profileInfo.dealsCount != null) {
             tvProfileDealsCount.text = profileInfo.dealsCount.toString()
         } else {
@@ -109,7 +110,7 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View, HistoryAdapte
 
     private fun initRecyclerView() {
         mHistoryAdapter = HistoryAdapter(mHistoryList, this)
-        rvHistories.layoutManager = LinearLayoutManager(this)
+        rvHistories.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
         rvHistories.adapter = mHistoryAdapter
         rvHistories.isNestedScrollingEnabled = true
 

@@ -16,7 +16,7 @@
 
         <include layout="@layout/partial_toolbar" />
 
-        <android.support.constraint.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -25,30 +25,74 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ui.main.MainActivity" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:context=".ui.main.MainActivity"
+                tools:layout_editor_absoluteY="0dp" />
 
             <ImageView
                 android:id="@+id/ivFilterSettings"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="@dimen/margin_32"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:layout_marginStart="@dimen/margin_16"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/ivMyLocation"
+                android:layout_marginBottom="17dp"
+                android:background="@drawable/bg_round_32dp_white"
                 android:src="@drawable/ic_settings"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
+                android:id="@+id/ivMyLocation"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/ic_create_suggestion"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="319dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <ImageView
                 android:id="@+id/ivCreateSuggestion"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_margin="@dimen/margin_32"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/ivFilterSettings"
+                android:layout_marginEnd="26dp"
                 android:src="@drawable/ic_create_suggestion"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imgZoomPlus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="138dp"
+                android:background="@drawable/bg_round_32dp_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_plus"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="246dp" />
+
+            <ImageView
+                android:id="@+id/imgZoomMinus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/imgZoomPlus"
+                android:layout_marginTop="204dp"
+                android:background="@drawable/bg_round_32dp_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imgZoomPlus"
+                app:srcCompat="@drawable/ic_minus" />
+        </RelativeLayout>
     </LinearLayout>
 
     <include layout="@layout/partial_navigation_view"/>

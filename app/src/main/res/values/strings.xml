@@ -78,6 +78,20 @@
     <string name="driver_endAdress_text">Укажите не менее 5 точек назначения:</string>
     <string name="additional_address">Дополнительные пункты прибытия</string>
     <string name="additional_hint_address">Дополнительные точки</string>
+    <string name="time">Время:</string>
+    <string name="from">Откуда:</string>
+    <string name="to">Куда:</string>
+    <string name="btnDeal">Сделка</string>
+    <string name="btnChat">Чат</string>
+    <string name="suggestion">Предложения</string>
+    <string name="common">Общие</string>
+    <string name="my">Мои</string>
+    <string name="outgoing">Отправленные:</string>
+    <string name="incoming">Полученные:</string>
+    <string name="exit">Выйти</string>
+    <string name="save_changes">Сохранить Изменения</string>
+    <string name="show_path">Просмотреть маршрут</string>
+    <string name="deal">Сделка</string>
 
 
 </resources>

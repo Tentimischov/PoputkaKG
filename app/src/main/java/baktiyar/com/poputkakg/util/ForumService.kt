@@ -1,6 +1,7 @@
 package baktiyar.com.poputkakg.util
 
 import baktiyar.com.poputkakg.model.*
+import baktiyar.com.poputkakg.model.suggestion.SuggestionList
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -36,6 +37,11 @@ interface ForumService {
 
     @Headers("Content-Type:application/json")
     @POST("deals/")
-    fun offerDeal(@Header("Authorization") token: String,@Path("route")
-    routeId:Int?,@Path("seats")seats:Int?): Call<DealBody>
+    fun offerDeal(@Header("Authorization") token: String,@Body route:HashMap<String,Int>)
+    : Call<DealBody>
+
+    @Headers("Content-Type:application/json")
+    @GET("deals/")
+    fun getOwnDeals(@Header("Authorization")token:String) : Call<SuggestionList>
+
 }

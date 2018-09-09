@@ -117,7 +117,7 @@ class NewOfferDialog : DialogFragment(), NewOfferContract.View, View.OnClickList
         when (v) {
             ivStartAddressPoint -> goToMap(tvStartAddressPoint.text.toString(), MAP_START, mStartLocation)
             ivEndAddressPoint -> goToMap(tvEndAddressPoint.text.toString(), MAP_END, mEndLocation)
-            ivAdditionalAddressPoint -> goToMap(tvAdditionalAddressPoint.text.toString(),MAP_ADDITIONAL_POINTS,LatLng(42.3,42.3))
+            ivAdditionalAddressPoint -> goToMap(tvAdditionalAddressPoint.text.toString(), MAP_ADDITIONAL_POINTS, LatLng(42.3, 42.3))
             btnSendOffer -> sendOffer()
         }
 
@@ -143,15 +143,18 @@ class NewOfferDialog : DialogFragment(), NewOfferContract.View, View.OnClickList
         mRout.isBag = mIsBag
         mRout.description = etRoutDescription.text.toString()
         mRout.startTime = Timestamp(System.currentTimeMillis()).nanos
-        mRout.startAddress = tvStartAddressPoint.text.toString()
-        mRout.endAddress = tvEndAddressPoint.text.toString()
         mRout.startLatitude = mStartLocation!!.latitude.toString()
         mRout.startLongitude = mStartLocation!!.longitude.toString()
 
         mRout.endLatitude = mEndLocation!!.latitude.toString()
         mRout.endLongitude = mEndLocation!!.longitude.toString()
+        mRout.startAddress = tvStartAddressPoint.text.toString()
+        mRout.endAddress = tvEndAddressPoint.text.toString()
 
-        mPresenter.sendOffer(mRout, Const.TOKEN_PREFIX+mToken)
+        mPresenter.sendOffer(mRout, Const.TOKEN_PREFIX + mToken)
+
+
+
     }
 
 

@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.PorterDuff
 import android.os.Build
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -16,7 +15,6 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
@@ -24,11 +22,11 @@ import android.widget.TextView
 import baktiyar.com.poputkakg.R
 import baktiyar.com.poputkakg.ui.login.LoginActivity
 import baktiyar.com.poputkakg.ui.profile.ProfileActivity
+import baktiyar.com.poputkakg.ui.suggestions.SuggestionActivity
 import baktiyar.com.poputkakg.util.Const
 import baktiyar.com.poputkakg.util.Const.Companion.hideKeyboard
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.partial_toolbar.*
 
 
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -48,35 +46,46 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
-        mDrawerLayout = findViewById(R.id.drawer_layout)
-        mNavView = findViewById(R.id.nav_view)
-        mFrameLayout = findViewById(R.id.content_frame)
-        mToolbar = findViewById(R.id.toolbar)
+        initializeViews()
+        initializeHeaderViews()
         mTvSuggestion = mNavView.menu.findItem(R.id.navItemSettingsStage)
-        mNavView.inflateHeaderView(R.layout.partial_nav_header)
-        mHeaderView = mNavView.getHeaderView(0)
-        mIvUserImage = mHeaderView.findViewById(R.id.ivProfileHeaderImage) as CircleImageView
-        mTvUserName = mHeaderView.findViewById(R.id.tvUserName) as TextView
-        mTvUserStatus = mHeaderView.findViewById(R.id.tvUserStatus) as TextView
 
         Glide.with(this)
                 .load("https://www.w3schools.com/w3css/img_lights.jpg")
                 .into(mIvUserImage)
 
-        mTvUserName.text = "textName"
-        mTvUserStatus.text = "textStatus"
 
 
-        mTvUserName.setOnClickListener { startActivity(Intent(this, ProfileActivity::class.java)) }
+
         mTvSuggestion.setOnMenuItemClickListener {
-            startIntent()
+            startIntent(SuggestionActivity::class.java)
         }
 
         init()
     }
 
-    private fun startIntent(): Boolean {
-        startActivity(Intent(this,ProfileActivity::class.java))
+    private fun initializeHeaderViews() {
+        mHeaderView = mNavView.getHeaderView(0)
+        mIvUserImage = mHeaderView.findViewById(R.id.ivProfileHeaderImage) as CircleImageView
+        mTvUserName = mHeaderView.findViewById(R.id.tvUserName) as TextView
+        mTvUserStatus = mHeaderView.findViewById(R.id.tvUserStatus) as TextView
+
+        mTvUserName.text = "textName"
+        mTvUserStatus.text = "textStatus"
+        mTvUserName.setOnClickListener {startIntent(ProfileActivity::class.java) }
+
+    }
+
+    private fun initializeViews() {
+        mDrawerLayout = findViewById(R.id.drawer_layout)
+        mNavView = findViewById(R.id.nav_view)
+        mFrameLayout = findViewById(R.id.content_frame)
+        mToolbar = findViewById(R.id.toolbar)
+        mNavView.inflateHeaderView(R.layout.partial_nav_header)
+    }
+
+    private fun startIntent(java: Class<*>): Boolean {
+        startActivity(Intent(this,java))
         return true
     }
 
