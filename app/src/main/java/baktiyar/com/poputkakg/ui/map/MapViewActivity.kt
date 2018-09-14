@@ -1,97 +1,105 @@
 package baktiyar.com.poputkakg.ui.map
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
-import android.provider.MediaStore.Images.Media.getBitmap
-import baktiyar.com.poputkakg.R
+import android.location.LocationManager
 import baktiyar.com.poputkakg.model.Rout
 import baktiyar.com.poputkakg.ui.BaseActivity
-import baktiyar.com.poputkakg.util.Const
+import baktiyar.com.poputkakg.ui.user_short_dialog.MarkerClickDialog
 import baktiyar.com.poputkakg.util.Permissions
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.partial_toolbar_poputka.*
 
-open class MapViewActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
+@Suppress("DEPRECATION")
+open class MapViewActivity : BaseActivity(),MapContract.View{
 
+    protected lateinit var mMap:GoogleMap
+    private lateinit var mPresenter:MapPresenter
 
-    private var mMap: GoogleMap? = null
-
+    @SuppressLint("ObsoleteSdkInt")
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
+            initGoogleMap()
 
-        init()
-    }
-
-    private fun init() {
-        initGoogleMap()
     }
 
     private fun initGoogleMap() {
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+        mPresenter = MapPresenter(this,this,this,resources,supportFragmentManager)
+        mPresenter.initMap()
     }
 
-    override fun onMapReady(googleMap: GoogleMap?) {
-        this.mMap = googleMap
-        mMap!!.mapType = GoogleMap.MAP_TYPE_NORMAL
-        mMap!!.uiSettings.isZoomControlsEnabled = true
-        mMap!!.uiSettings.isMyLocationButtonEnabled = true
-        mMap!!.mapType = GoogleMap.MAP_TYPE_NORMAL
-        // По умолчанию Ориентир Бишкек
-        val startLatLng = LatLng(42.8746, 74.5698)
-        val camPos = CameraPosition.Builder().target(startLatLng).zoom(13f).build()
-        mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))
-        mMap!!.setOnMyLocationButtonClickListener(this)
-        if (Permissions.iPermissionLocation(this))
-            setMyLocationEnable()
+    override fun onSuccessMapReady(map: GoogleMap) {
+        mMap = map
+        configurateGoogleMapUi(map)
+
     }
-
-    override fun onMyLocationButtonClick(): Boolean = false
-
-
     @SuppressLint("MissingPermission")
-    private fun setMyLocationEnable() {
-        mMap!!.isMyLocationEnabled = true
+    private fun configurateGoogleMapUi(map: GoogleMap) {
+        ivMyLocation.setOnClickListener {
+            if (ifGpsEnabled())
+                mPresenter.getMyLocation()
+            else
+                mPresenter.showDialogAlert()
+        }
     }
+    private fun ifGpsEnabled(): Boolean {
+        val service = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return service.isProviderEnabled(LocationManager.GPS_PROVIDER)
+
+    }
+
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Permissions.Request.ACCESS_FINE_LOCATION &&
+                requestCode == Permissions.Request.ACCESS_COARSE_LOCATION &&
                 grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            setMyLocationEnable()
+            mPresenter.getMyLocation()
         } else {
             Permissions.iPermissionLocation(this)
+
         }
     }
 
-    protected fun drawList(list: MutableList<Rout>) {
-        if (mMap != null) {
-            list.forEach { data ->
-                if (data.startLatitude != null && data.startLongitude != null) {
-                    val latLng = LatLng(java.lang.Double.parseDouble(data.startLatitude!!), java.lang.Double.parseDouble(data.startLongitude!!))
-                    mMap!!.addMarker(MarkerOptions()
-                            .title(data.owner)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.driver_marker))
-                            .anchor(0.0f, 1.0f)
-                            .position(latLng)).tag = data
-                }
+    protected  fun drawList(list: MutableList<Rout>) {
+        mPresenter.drawList(list)
+    }
+    override fun onSuccessDrawList(list: MutableList<Rout>) {
+        setOnMarkerClickListeners(list)
+    }
 
-                if (data.endLatitude!= null && data.endLongitude!= null) {
-                    val latLng = LatLng(java.lang.Double.parseDouble(data.endLatitude!!), java.lang.Double.parseDouble(data.endLongitude!!))
-                    mMap!!.addMarker(MarkerOptions()
-                            .title(data.owner)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.rider_marker))
-                            .anchor(0.0f, 1.0f)
-                            .position(latLng)).tag = data
-                }
+    private fun setOnMarkerClickListeners(list:MutableList<Rout>) {
+        mMap.setOnMarkerClickListener {
+            openCurrentRiderInformationDialogFragment(it,list)
+        }
+    }
+
+    private  fun openCurrentRiderInformationDialogFragment(it: Marker?, list: MutableList<Rout>): Boolean {
+        var currentMarkerRout = Rout()
+        for(i in 0 until list.size){
+            if(it!!.title == list[i].owner){
+                currentMarkerRout = list[i]
+
             }
         }
+        val dialog = MarkerClickDialog(currentMarkerRout,mMap)
+        dialog.show(fragmentManager,"dialog")
+        return true
     }
 
-}
+
+
+
+
+
+
+
+    }
+
+
+
+

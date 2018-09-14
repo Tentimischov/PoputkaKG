@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryDark">#2968E2</color>
+    <color name="colorPrimaryDark">#0a44b3</color>
     <color name="colorPrimary">#1C4FB0</color>
     <color name="colorAccent">#2968E2</color>
     <color name="white">#FFFFFF</color>
@@ -9,8 +9,13 @@
     <color name="blueLight">#F4F7FE</color>
     <color name="darkGray">#525252</color>
     <color name="gray">#707070</color>
-    <color name="lightGray">#E0E0E0</color>
+    <color name="gray_solid">#B5B5B5</color>
+    <color name="textInputColor">#2968E2</color>
+    <color name="lightGray">#E5E5E5</color>
     <color name="yellow">#F0F364</color>
+    <color name="red">#f90d1c</color>
+    <color name="prozrachniy">#3cfffefe</color>
+
     <color name="black">#000000</color>
 
 </resources>

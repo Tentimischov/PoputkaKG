@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import baktiyar.com.poputkakg.R
@@ -20,7 +21,7 @@ import baktiyar.com.poputkakg.util.Const
 import baktiyar.com.poputkakg.util.FileLog
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.partial_toolbar.*
+import kotlinx.android.synthetic.main.partial_toolbar_poputka.*
 import kotlin.properties.Delegates
 
 class ProfileActivity : AppCompatActivity(), ProfileContract.View, HistoryAdapter.OnHistoryItemClickListener {
@@ -61,13 +62,13 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View, HistoryAdapte
 
     private fun initToolbar() {
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(mainToolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimaryDark)))
 
         // set up button color
-        toolbar.navigationIcon!!.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_ATOP)
+        mainToolbar.navigationIcon!!.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_ATOP)
         ivToolbarImage.setBackgroundResource(R.drawable.ic_logo_white)
     }
 
@@ -90,18 +91,17 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View, HistoryAdapte
         }else{
             ivProfileImage.visibility = View.GONE
         }
-        tvProfileName.text = profileInfo.firstName + " " + profileInfo.lastName
-        tvProfileCity.text = profileInfo.city
-        tvProfilePhoneNumber.text = profileInfo.phone
+        //tvProfileName.setText( profileInfo.firstName)
+       // tvProfileCity.setText( profileInfo.city)
+       // tvProfilePhoneNumber.setText( profileInfo.phone)
         if (profileInfo.dealsCount != null) {
             tvProfileDealsCount.text = profileInfo.dealsCount.toString()
         } else {
             tvProfileDealsCount.text = "0"
         }
         if(profileInfo.rating!=null){
-            tvProfileRating.text = profileInfo.rating.toString()
+           // tvProfileRating.text = profileInfo.rating.toString()
         }else{
-            tvProfileRating.text = "0"
         }
         setUserStatus(profileInfo.isDriver)
 
@@ -109,7 +109,7 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View, HistoryAdapte
 
     private fun initRecyclerView() {
         mHistoryAdapter = HistoryAdapter(mHistoryList, this)
-        rvHistories.layoutManager = LinearLayoutManager(this)
+        rvHistories.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
         rvHistories.adapter = mHistoryAdapter
         rvHistories.isNestedScrollingEnabled = true
 
@@ -137,12 +137,6 @@ class ProfileActivity : AppCompatActivity(), ProfileContract.View, HistoryAdapte
 
 
     private fun setUserStatus(isDriver: Boolean?) {
-        if (isDriver != null) {
-            if (isDriver) {
-                btnIsRiderSignUp.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.lightGray))
-            } else {
-                btnIsDriverSignUp.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.lightGray))
-            }
-        }
+
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainToolbar"
+    app:contentInsetStartWithNavigation="0dp"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    >
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_width="60dp"
+            android:fitsSystemWindows="true"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/ic_logo_white_round" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivToolbarImage"
+            android:layout_margin="@dimen/margin_6"
+            android:layout_alignParentRight="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorPrimary"
+            android:src="@drawable/profile_user"
+            tools:ignore="VectorDrawableCompat"
+            tools:targetApi="lollipop"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>

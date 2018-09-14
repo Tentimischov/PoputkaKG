@@ -4,25 +4,22 @@
     tools:showIn="navigation_view">
     <group>
         <item
-            android:id="@+id/navItemImageLibrary"
+            android:icon="@drawable/map"
+            android:id="@+id/navItemImageMap"
             android:title="@string/map" />
         <item
-            android:id="@+id/navItemSettingsStage"
+            android:icon="@drawable/suggestion"
+            android:id="@+id/navItemSuggestion"
             android:title="@string/offers" />
         <item
-            android:id="@+id/navItemCreateCard"
-            android:title="@string/invite_friends" />
-        <item
-            android:id="@+id/navItemAppInfo"
-            android:title="@string/settings" />
-
-        <item
+            android:id="@+id/navItemSupport"
             android:title="@string/support" />
-        <item
-            android:title="@string/about_app" />
+
+
+    </group>
+    <group android:id="@+id/group_exit">
         <item
             android:id="@+id/navItemLogOut"
             android:title="@string/log_out" />
-
     </group>
 </menu>

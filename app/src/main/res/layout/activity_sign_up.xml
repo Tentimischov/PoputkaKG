@@ -1,67 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ui.signup.SignUpActivity">
-
-    <ScrollView
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/margin_32">
+            android:padding="32dp">
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="47dp"
+                android:layout_height="51dp"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_32"
-                android:src="@drawable/ic_logo" />
+                android:layout_margin="@dimen/margin_16"
+                app:srcCompat="@drawable/ic_logo" />
 
             <TextView
+                android:layout_marginTop="@dimen/margin_16"
+                android:textSize="24sp"
                 style="@style/StyledTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/signing_up" />
 
             <LinearLayout
+                android:layout_marginTop="@dimen/margin_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/margin_8"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/padding_16"
-                android:paddingTop="@dimen/padding_16">
+                >
 
                 <Button
-                    android:id="@+id/btnIsDriverSignUp"
-                    android:background="@color/colorPrimary"
-                    android:textColor="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/margin_8"
+                    android:id="@+id/btnIsDriverSignUp"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
-                    android:text="@string/driver" />
+                    android:layout_marginBottom="@dimen/margin_8"
+                    android:background="@drawable/bg_round"
+                    android:text="@string/driver"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:layout_marginEnd="@dimen/margin_8" />
 
                 <Button
+                    android:textStyle="italic"
+                    android:textSize="@dimen/text_12sp"
                     android:id="@+id/btnIsRiderSignUp"
-                    android:background="@color/lightGray"
+                    android:background="@drawable/bg_round_gray"
                     android:textColor="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/margin_8"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="@dimen/margin_8"
                     android:layout_weight="1"
                     android:text="@string/passenger" />
 
             </LinearLayout>
-
             <EditText
-
+                android:textSize="@dimen/text_12sp"
                 android:hint="@string/type_phone_number"
                 android:id="@+id/etPhoneSignUp"
                 style="@style/StyledEditText"
@@ -69,46 +71,61 @@
                 android:maxLines="1" />
 
             <EditText
+                android:textSize="@dimen/text_12sp"
+                android:hint="Ваше имя"
+                android:id="@+id/etNameSignUp"
+                style="@style/StyledEditText"
+                android:inputType="text"
+                android:maxLines="1" />
 
+
+            <EditText
+                android:textSize="@dimen/text_12sp"
                 android:hint="@string/type_password"
                 android:id="@+id/etPasswordSignUp"
                 style="@style/StyledEditText"
                 android:inputType="textPassword"
                 android:maxLines="1" />
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_weight="100"
+                    android:id="@+id/spinnerSitiesSignUp"
+                    android:layout_height="0dp"
+                    android:background="@color/gray" />
 
-            <Spinner
-                android:id="@+id/spinnerSitiesSignUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/gray" />
+
+
 
             <TextView
                 android:id="@+id/tvUsagePolicySignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/usage_police"
+
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/text_16sp"
+                android:textSize="@dimen/text_14sp"
                 android:textStyle="bold" />
 
             <CheckBox
+                android:layout_marginTop="@dimen/margin_12"
                 android:id="@+id/chkBoxAgreedSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="@dimen/text_12sp"
                 android:text="@string/i_am_agree"
                 android:textColor="@color/darkGray" />
 
             <Button
                 android:id="@+id/btnSignUp"
+                android:textSize="@dimen/text_12sp"
                 style="@style/StyledButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="@dimen/margin_16"
                 android:text="@string/sign_up" />
 
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>

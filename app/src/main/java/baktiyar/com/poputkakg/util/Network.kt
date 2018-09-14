@@ -1,5 +1,8 @@
 package baktiyar.com.poputkakg.util
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,7 +26,8 @@ object Network {
     }
 
     private fun getClient(): OkHttpClient {
-        val interceptor = HttpLoggingInterceptor()
+        val interceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Log.i(
+                "_______________", message) })
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         val client = OkHttpClient.Builder()
                 .addInterceptor { chain ->

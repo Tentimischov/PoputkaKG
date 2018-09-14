@@ -1,11 +1,9 @@
 package baktiyar.com.poputkakg.ui.signup
 
-import android.app.Activity
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import baktiyar.com.poputkakg.R
@@ -19,27 +17,20 @@ import baktiyar.com.poputkakg.util.ConnectionsManager
 import baktiyar.com.poputkakg.util.Const
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import android.widget.CompoundButton
-
-
 class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract.View {
-
 
     private var mIsDriver = true
     private var mIsAgreed = false
     private var mUser: User = User()
     private var mProfileInfo: ProfileInfo = ProfileInfo()
-
     private lateinit var mCities: MutableList<City>
     private lateinit var mPresenter: SignUpPresenter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-
         init()
     }
-
 
     private fun init() {
         chkBoxAgreedSignUp.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
@@ -61,23 +52,18 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
     }
 
     private fun initSpinner() {
-
         spinnerSitiesSignUp.adapter = CitiesSpinnerAdapter(this, mCities)
-
-        spinnerSitiesSignUp.setSelection(1)
     }
 
     private fun onUserButtonClick(isDriver: Boolean) {
         if (isDriver) {
             mIsDriver = true
-
-            btnIsDriverSignUp.setBackgroundColor(resources.getColor(R.color.lightGray))
-            btnIsRiderSignUp.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
+            btnIsDriverSignUp.setBackgroundResource(R.drawable.bg_round)
+            btnIsRiderSignUp.setBackgroundResource(R.drawable.bg_round_gray)
         } else {
             mIsDriver = false
-
-            btnIsDriverSignUp.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark))
-            btnIsRiderSignUp.setBackgroundColor(resources.getColor(R.color.lightGray))
+            btnIsDriverSignUp.setBackgroundResource(R.drawable.bg_round_gray)
+            btnIsRiderSignUp.setBackgroundResource(R.drawable.bg_round)
         }
 
     }
@@ -85,10 +71,10 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
     override fun onClick(v: View?) {
         when (v) {
             btnIsRiderSignUp -> {
-                onUserButtonClick(true)
+                onUserButtonClick(false)
             }
             btnIsDriverSignUp -> {
-                onUserButtonClick(false)
+                onUserButtonClick(true)
             }
 
             btnSignUp -> {
@@ -97,6 +83,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
         }
     }
 
+    @SuppressLint("WorldReadableFiles")
     private fun createUser() {
 
         if (filledFields()) {
@@ -106,6 +93,10 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
             } else {
                 Const.makeToast(this, resources.getString(R.string.error_phone_length))
             }
+            val preference = this.getSharedPreferences(Const.PREFS_FILENAME,android.content.Context.MODE_PRIVATE).edit()
+            preference.putString("name",etNameSignUp    .text.toString())
+            preference.apply()
+            mUser.firstName = etNameSignUp.text.toString()
             mUser.password = etPasswordSignUp.text.toString()
             mUser.passwordRepeat = etPasswordSignUp.text.toString()
             mUser.isDriver = mIsDriver
@@ -130,7 +121,8 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener, SignUpContract
     }
 
     private fun filledFields(): Boolean {
-        return !(etPasswordSignUp.text.toString() == "" || etPhoneSignUp.text.toString() == "")
+        return !(etPasswordSignUp.text.toString() == "" || etPhoneSignUp.text.toString() == ""
+                || etNameSignUp.text.toString() == "")
     }
 
     override fun onSuccessGetCities(cities: MutableList<City>) {

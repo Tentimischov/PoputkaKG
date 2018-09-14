@@ -37,6 +37,7 @@ class CheckSmsCodeActivity : AppCompatActivity(), CheckSmsCodeContract.View {
             if(intent.extras.containsKey(Const.INTENT_PROFILE_INFO)){
                 mProfileInfo = intent.getParcelableExtra(Const.INTENT_PROFILE_INFO)
                 mPrefs.edit().putBoolean(Const.PREFS_CHECK_IS_DRIVER, mProfileInfo.isDriver!!).apply()
+
             }
         }
 

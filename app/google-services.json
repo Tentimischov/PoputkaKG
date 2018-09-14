@@ -15,13 +15,21 @@
       },
       "oauth_client": [
         {
+          "client_id": "903503758868-8d6s1kn200m9o9bbsk9c8oquo17kbrdv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "baktiyar.com.poputkakg",
+            "certificate_hash": "8eb7103b1984f8ea47e65387ee56168f9669985a"
+          }
+        },
+        {
           "client_id": "903503758868-lbvmo144n1nkkja44p86vbqm9ld0pups.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDiUnQBtlfZfdgdZz05BEKckT5l6Z6DCHw"
+          "current_key": "AIzaSyBHZx8zTVBcv_shWAYBPYIpzsRyNenZRVU"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903503758868-lbvmo144n1nkkja44p86vbqm9ld0pups.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

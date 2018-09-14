@@ -3,7 +3,28 @@
 buildscript {
     ext.kotlin_version = '1.2.50'
     ext.supportLibVersion = '27.1.1'
-    ext.googleServiceLibVersion = '11.4.2'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ext.googleServiceLibVersion = '12.0.1'
 
 
     repositories {
@@ -11,16 +32,30 @@ buildscript {
         jcenter()
     }
     dependencies {
+        classpath 'com.google.gms:google-services:4.0.1'
         classpath 'com.android.tools.build:gradle:3.1.4'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.61"
+
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
     }
+
 }
 
 allprojects {
     repositories {
+        configurations.all{
+            resolutionStrategy.eachDependency{
+                DependencyResolveDetails details->
+                    def requested = details.requested
+                    if(requested.group == 'com.google.android.gms')
+                        details.useVersion('12.0.1')
+                    if(requested.group == 'com.google.firebase')
+                        details.useVersion('12.0.1')
+            }
+        }
         google()
         jcenter()
 

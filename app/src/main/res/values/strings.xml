@@ -1,17 +1,17 @@
 <resources>
     <string name="app_name">PoputkaKG</string>
     <string name="profile">Профиль</string>
-    <string name="profile_name">Имя:</string>
-    <string name="profile_phone">Номер телефона:</string>
-    <string name="profile_city">Город:</string>
-    <string name="your_rating">Ваш\n рейтинг:</string>
+    <string name="profile_name">Имя</string>
+    <string name="profile_phone">Номер телефона</string>
+    <string name="profile_city">Город</string>
+    <string name="your_rating">Ваш\n рейтинг</string>
     <string name="enter_login">Вход</string>
     <string name="forgot_password">Забыли пароль?</string>
     <string name="sign_up">Зарегестрироваться</string>
     <string name="signing_up">Регистрация</string>
     <string name="driver">Водитель</string>
     <string name="passenger">Пассажир</string>
-    <string name="usage_police">Политика использования приложения</string>
+    <string name="usage_police"><u>Политика использования приложения</u></string>
     <string name="i_am_agree">Ознакомлен и принимаю</string>
     <string name="map">Карта</string>
     <string name="offers">Предложения</string>
@@ -57,7 +57,7 @@
 
 
     <string name="success">Успешно прошло</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Загрузка...</string>
     <string name="sms_code">Введите СМС-код</string>
     <string name="filter_from_all">Всех</string>
     <string name="filter">Загрузить</string>
@@ -68,6 +68,34 @@
     <string name="rout_goal">Цель поездки</string>
     <string name="read_license">Пожалуйста прочитайте политику использования приложения</string>
     <string name="ask_sure_logout">Вы действительно хотите выйти?</string>
+    <string name="channel_name">notification</string>
+    <string name="spinnerText">Город</string>
+    <string name="wrong_nubmber_or_login">Неверно указан номер телефона или пароль</string>
+    <string name="restore_text">Восстановление\nПароля</string>
+    <string name="restore_text2">Пароля</string>
+    <string name="restore_hint">Введите ваш номер телефона</string>
+    <string name="send_code">Отправить код</string>
+    <string name="driver_endAdress_text">Укажите не менее 5 точек назначения:</string>
+    <string name="additional_address">Дополнительные пункты прибытия</string>
+    <string name="additional_hint_address">Дополнительные точки</string>
+    <string name="time">Время:</string>
+    <string name="from">Откуда:</string>
+    <string name="to">Куда:</string>
+    <string name="btnDeal">Сделка</string>
+    <string name="btnChat">Чат</string>
+    <string name="suggestion">Предложения</string>
+    <string name="common">Общие</string>
+    <string name="my">Мои</string>
+    <string name="outgoing">Отправленные</string>
+    <string name="incoming">Полученные</string>
+    <string name="exit">Выйти</string>
+    <string name="save_changes">Сохранить Изменения</string>
+    <string name="show_path">Просмотреть маршрут</string>
+    <string name="deal">Сделка</string>
+    <string name="btnCall">Звонок</string>
+    <string name="created">Созданные</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
 
 
 </resources>

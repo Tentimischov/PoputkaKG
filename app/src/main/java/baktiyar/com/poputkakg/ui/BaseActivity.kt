@@ -1,12 +1,13 @@
 package baktiyar.com.poputkakg.ui
 
-import android.app.ActivityManager
-import android.app.AlertDialog
+import android.app.*
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.PorterDuff
+import android.content.res.Configuration
+import android.os.Build
+import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
@@ -15,115 +16,103 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.TextView
 import baktiyar.com.poputkakg.R
 import baktiyar.com.poputkakg.ui.login.LoginActivity
-import baktiyar.com.poputkakg.ui.profile.ProfileActivity
+import baktiyar.com.poputkakg.ui.suggestions.SuggestionActivity
 import baktiyar.com.poputkakg.util.Const
 import baktiyar.com.poputkakg.util.Const.Companion.hideKeyboard
-import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.partial_toolbar.*
 
 
-open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+open class BaseActivity : AppCompatActivity(){
 
-    private lateinit var mFrameLayout: FrameLayout
+
+
+
+    protected lateinit var mDrawer: DrawerLayout
     private lateinit var mToolbar: Toolbar
-    private lateinit var mDrawerLayout: DrawerLayout
-    private lateinit var mNavView: NavigationView
-    private lateinit var mHeaderView: View
     private lateinit var mIvUserImage: CircleImageView
-    private lateinit var mTvUserName: TextView
-    private lateinit var mTvUserStatus: TextView
-
-
     protected lateinit var mPrefs: SharedPreferences
+    protected lateinit var navigationView:NavigationView
+    protected lateinit var toggle: ActionBarDrawerToggle
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
-        mDrawerLayout = findViewById(R.id.drawer_layout)
-        mNavView = findViewById(R.id.nav_view)
-        mFrameLayout = findViewById(R.id.content_frame)
-        mToolbar = findViewById(R.id.toolbar)
-        mNavView.inflateHeaderView(R.layout.partial_nav_header);
-
-        mHeaderView = mNavView.getHeaderView(0)
-
-        mIvUserImage = mHeaderView.findViewById(R.id.ivProfileHeaderImage) as CircleImageView
-        mTvUserName = mHeaderView.findViewById(R.id.tvUserName) as TextView
-        mTvUserStatus = mHeaderView.findViewById(R.id.tvUserStatus) as TextView
-
-        Glide.with(this)
-                .load("https://www.w3schools.com/w3css/img_lights.jpg")
-                .into(mIvUserImage)
-
-        mTvUserName.text = "textName"
-        mTvUserStatus.text = "textStatus"
-
-        mTvUserName.setOnClickListener { startActivity(Intent(this, ProfileActivity::class.java)) }
-
+        mToolbar = findViewById(R.id.mainToolbar)
+        setSupportActionBar(mToolbar)
+        mDrawer = findViewById(R.id.drawer_layout)
+        navigationView  = findViewById(R.id.navigationView)
+        navigationView.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {
+            onNavigationItemSelected(it)
+        })
         init()
     }
 
     private fun init() {
+
         mPrefs = this.getSharedPreferences(Const.PREFS_FILENAME, 0)
-
-        setSupportActionBar(mToolbar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
-        val id = intent.getIntExtra("id", R.id.navItemSettingsStage)
-
-        val toggle = object : ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.app_name, R.string.app_name) {
+        toggle = object : ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.app_name, R.string.app_name) {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 hideKeyboard(this@BaseActivity)
             }
         }
+        toggle.isDrawerSlideAnimationEnabled = false
 
 
-        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
-//        mToolbar.navigationIcon!!.setColorFilter(resources.getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP)
-
-        mDrawerLayout.addDrawerListener(toggle)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+        supportActionBar?.setHomeButtonEnabled(true)
+        mDrawer.addDrawerListener(toggle)
         toggle.syncState()
-        mNavView.setNavigationItemSelectedListener(this)
-        mNavView.setCheckedItem(id)
-
     }
-
-
-    override fun onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            val startMain = Intent(Intent.ACTION_MAIN)
-            startMain.addCategory(Intent.CATEGORY_HOME)
-            startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(startMain)
+     fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.navItemImageMap ->
+                mDrawer.closeDrawer(GravityCompat.START)
+            R.id.navItemSuggestion ->
+                startActivity(Intent(this, SuggestionActivity::class.java))
+            R.id.navItemLogOut -> logOut()
         }
-
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        mDrawerLayout.closeDrawer(GravityCompat.START)
-        val id: Int = item.itemId
-        when (id) {
-            R.id.navItemLogOut -> {
-                logOut()
-            }
-        }
+        mDrawer.closeDrawer(GravityCompat.START)
         return true
-
     }
 
+
+
+
+override fun onBackPressed() {
+        if(mDrawer.isDrawerOpen(GravityCompat.START)){
+            mDrawer.closeDrawer(GravityCompat.START)
+        }
+        else
+            super.onBackPressed()
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        toggle.syncState()
+    }
 
     private fun checkActivity(o: Class<*>): Boolean {
         val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val cn = am.getRunningTasks(1)[0].topActivity
         return !cn.shortClassName.contains(o.simpleName)
     }
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = getString(R.string.channel_name)
+            val description = getString(R.string.channel_name)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(getString(R.string.channel_name),name,importance)
+            channel.description= description
 
-    private fun logOut() {
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+
+        }
+    }
+
+    protected fun logOut() {
         val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
@@ -135,7 +124,6 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     startActivity(Intent(this, LoginActivity::class.java))
 
                 }
-
                 DialogInterface.BUTTON_NEGATIVE -> {
                     dialog.dismiss()
                 }

@@ -1,28 +1,43 @@
 package baktiyar.com.poputkakg.util;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
-import baktiyar.com.poputkakg.R;
+
+
+import java.util.ArrayList;
 
 public class Permissions {
 
     public static boolean iPermissionRecordAudio(AppCompatActivity activity) {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
             Permissions.requestPermission(activity, Request.RECORD_AUDIO,
-                    new String[]{Manifest.permission.RECORD_AUDIO,
-                            Manifest.permission.READ_EXTERNAL_STORAGE}, true);
+                    Manifest.permission.RECORD_AUDIO);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean iPermissionCache(AppCompatActivity activity) {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CLEAR_APP_CACHE)
+                != PackageManager.PERMISSION_GRANTED) {
+            Permissions.requestPermission(activity, Request.CLEAR_APP_CACHE,
+                    Manifest.permission.CLEAR_APP_CACHE);
             return false;
         }
         return true;
@@ -32,7 +47,7 @@ public class Permissions {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             Permissions.requestPermission(activity, Request.CAMERA,
-                    Manifest.permission.CAMERA, true);
+                    Manifest.permission.CAMERA);
             return false;
         }
         return true;
@@ -42,7 +57,7 @@ public class Permissions {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
             Permissions.requestPermission(activity, Request.READ_CONTACTS,
-                    Manifest.permission.READ_CONTACTS, true);
+                    Manifest.permission.READ_CONTACTS);
             return false;
         }
         return true;
@@ -52,12 +67,12 @@ public class Permissions {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             Permissions.requestPermission(activity, Request.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+                    Manifest.permission.ACCESS_FINE_LOCATION);
             return false;
         } else if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             Permissions.requestPermission(activity, Request.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION, true);
+                    Manifest.permission.ACCESS_COARSE_LOCATION);
             return false;
         }
         return true;
@@ -67,17 +82,18 @@ public class Permissions {
         if (ContextCompat.checkSelfPermission(appCompatActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             Permissions.requestPermission(appCompatActivity, Request.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE, true);
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
             return false;
         }
         return true;
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static boolean iPermissionReadStorage(AppCompatActivity activity) {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             Permissions.requestPermission(activity, Request.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_EXTERNAL_STORAGE, true);
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
             return false;
         }
         return true;
@@ -87,24 +103,29 @@ public class Permissions {
      * Requests the fine location permission. If a rationale with an additional explanation should
      * be shown to the user, displays a dialog that triggers the request.
      */
-    public static void requestPermission(AppCompatActivity activity, int requestId,
-                                         String permission, boolean finishActivity) {
+    private static void requestPermission(AppCompatActivity activity, int requestId, String permission) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
-            RationaleDialog.newInstance(requestId, finishActivity)
+            RationaleDialog.newInstance(requestId, true)
                     .show(activity.getSupportFragmentManager(), "dialog");
         } else {
             ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
+
         }
     }
 
-    public static void requestPermission(AppCompatActivity activity, int requestId,
-                                         String[] permission, boolean finishActivity) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission[0])) {
-            RationaleDialog.newInstance(requestId, finishActivity)
-                    .show(activity.getSupportFragmentManager(), "dialog");
-        } else {
-            ActivityCompat.requestPermissions(activity, permission, requestId);
+    public static boolean checkPermissions(ArrayList<String> permissions, AppCompatActivity appCompatActivity) {
+        ArrayList<String> listPermissionsNeeded = new ArrayList<String>();
+        for(String p: permissions) {
+            if (ContextCompat.checkSelfPermission(appCompatActivity, p) != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(p);
+            }
         }
+        String[] array = listPermissionsNeeded.toArray(new String[0]);
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(appCompatActivity, array, Request.SMS_PERMISSION_REQUEST_CONE);
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -132,6 +153,8 @@ public class Permissions {
         public static final int ACCESS_FINE_LOCATION = 5;
         public static final int ACCESS_COARSE_LOCATION = 6;
         public static final int RECORD_AUDIO = 7;
+        public static final int CLEAR_APP_CACHE = 8;
+        public static final int SMS_PERMISSION_REQUEST_CONE = 9;
     }
 
     /**
@@ -175,19 +198,20 @@ public class Permissions {
             startActivityForResult(appSettingsIntent, Request.SETTING);
         }
 
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return new AlertDialog.Builder(getActivity())
-                    .setMessage(R.string.request_setting_permissions)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            openApplicationSettings();
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .create();
-        }
+//        @NonNull
+//        @Override
+//        public Dialog onCreateDialog(Bundle savedInstanceState) {
+//            return new AlertDialog.Builder(getActivity())
+//                    .setMessage(R.string.request_setting_permissions)
+//                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            openApplicationSettings();
+//                        }
+//                    })
+//                    .setNegativeButton(android.R.string.cancel, null)
+//                    .create();
+//        }
 
         @Override
         public void onDismiss(DialogInterface dialog) {

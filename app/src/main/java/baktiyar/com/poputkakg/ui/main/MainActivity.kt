@@ -1,46 +1,85 @@
 package baktiyar.com.poputkakg.ui.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.view.MenuItem
+import android.view.View
 import baktiyar.com.poputkakg.R
 import baktiyar.com.poputkakg.StartApplication.Companion.INSTANCE
 import baktiyar.com.poputkakg.model.Rout
-import baktiyar.com.poputkakg.ui.BaseActivity
+import baktiyar.com.poputkakg.model.TokenInfo
 import baktiyar.com.poputkakg.ui.map.MapViewActivity
 import baktiyar.com.poputkakg.ui.offer.create_offer.NewOfferDialog
+import baktiyar.com.poputkakg.ui.suggestions.SuggestionActivity
 import baktiyar.com.poputkakg.util.Const
+import com.google.android.gms.maps.CameraUpdateFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog_new_offer.*
 
-class MainActivity : MapViewActivity(), MainContract.View {
+class MainActivity : MapViewActivity(), MainContract.View,NavigationView.OnNavigationItemSelectedListener {
 
 
-    private lateinit var mPresenter: MainContract.Presenter
+
+    private lateinit var mPresenter:MainPresenter
     private lateinit var mToken: String
     private var mRoutList: MutableList<Rout> = mutableListOf()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         mToken = mPrefs.getString(Const.PREFS_CHECK_TOKEN, "")
 
 
-        init()
-
-    }
-
-    private fun init() {
-        ivCreateSuggestion.setOnClickListener { showNewOfferDialog() }
-        ivFilterSettings.setOnClickListener { showFilterDialog() }
 
         initPresenter()
     }
 
+    private fun init() {
+        ivCreateSuggestion.setOnClickListener { showNewOfferDialog()
+        }
+        ivFilterSettings.setOnClickListener { showFilterDialog() }
+
+        imgZoomPlus.setOnClickListener { mMap.animateCamera(CameraUpdateFactory.zoomIn()) }
+        imgZoomMinus.setOnClickListener { mMap.animateCamera(CameraUpdateFactory.zoomOut()) }
+        tvAll.setOnClickListener {
+            mPresenter.getRoutes(mToken)
+            mainFilter.visibility = View.GONE
+        }
+        tvDrivers.setOnClickListener {
+            mPresenter.getDriversRouts(mToken)
+            mainFilter.visibility = View.GONE
+        }
+        tvSystemSuggested.setOnClickListener {
+            mPresenter.getSystemSuggestionRoutes(mToken)
+            mainFilter.visibility = View.GONE
+        }
+
+    }
+    override fun onSuccessSendToken(tokenInfo: TokenInfo) {
+
+    }
+    override fun onSuccessGetSuggestionRoutes(routs: List<Rout>) {
+        mRoutList = routs as MutableList<Rout>
+        drawList(mRoutList)
+        hideProgress()
+    }
+
+    override fun onSuccessDriverRoutes(routs: List<Rout>) {
+        mRoutList = routs as MutableList<Rout>
+        drawList(mRoutList)
+        hideProgress()
+    }
+
     private fun initPresenter() {
+        mToken = Const.TOKEN_PREFIX+this.getSharedPreferences(Const.PREFS_FILENAME,0).getString(Const.PREFS_CHECK_TOKEN,"null")
+        val name = this.getSharedPreferences(Const.PREFS_FILENAME,android.content.Context.MODE_PRIVATE).getString("name","null")
         mPresenter = MainPresenter(this, INSTANCE.service)
+        mPresenter.sendToken(this,this,name,mToken)
         mPresenter.getRoutes(mToken)
+        init()
+
     }
 
     private fun showNewOfferDialog() {
@@ -49,38 +88,13 @@ class MainActivity : MapViewActivity(), MainContract.View {
     }
 
     private fun showFilterDialog() {
-        val args = arrayOf<String>(
-                getString(R.string.filter_from_all),
-                getString(R.string.filter_from_drivers),
-                getString(R.string.filter_from_riders),
-                getString(R.string.filter_from_suggestions))
-        AlertDialog.Builder(this).setTitle(getString(R.string.filter)).setItems(args) { dialog, w ->
-            when (w) {
-                0 -> {
-                    getRoutes()
-                }
-                1 -> {
-                    //TODO make filter for drivers
-                    getRoutes()
-                }
-                2 -> {
-                    //TODO make filter for riders
-                    getRoutes()
-                }
-                3 -> {
-                    //TODO make filter for suggestions
-                    getRoutes()
-                }
-            }
-            dialog.dismiss()
-        }.show()
+        if(mainFilter.visibility == View.VISIBLE)
+            mainFilter.visibility = View.GONE
+        else {
+            mainFilter.visibility = View.VISIBLE
+            mainFilter.animate()
+        }
     }
-
-
-    private fun getRoutes() {
-        mPresenter.getRoutes(mToken)
-    }
-
     override fun onSuccessGetRoutes(routs: List<Rout>) {
         mRoutList = routs as MutableList<Rout>
         drawList(mRoutList)
@@ -88,7 +102,6 @@ class MainActivity : MapViewActivity(), MainContract.View {
     }
 
     override fun onError(message: String) {
-
     }
 
     override fun showProgress() {
